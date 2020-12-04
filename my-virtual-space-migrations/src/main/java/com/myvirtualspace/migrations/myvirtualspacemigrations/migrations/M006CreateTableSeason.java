@@ -6,11 +6,11 @@ import net.fasolato.jfmigrate.Migration;
 import java.sql.JDBCType;
 
 @Migration(number = 6)
-public class M006CreateTableSeasons extends JFMigrationClass {
+public class M006CreateTableSeason extends JFMigrationClass {
 
     @Override
     public void up() {
-        migration.createTable("seasons")
+        migration.createTable("season")
                 .addColumn("id").asString(36).primaryKey()
                 .addColumn("title").asString(255).notNullable()
                 .addColumn("number").asInteger().notNullable()
@@ -23,29 +23,23 @@ public class M006CreateTableSeasons extends JFMigrationClass {
                 .addColumn("deleted").as(JDBCType.BOOLEAN).defaultValue(false)
 
                 .addColumn("anime").asString(36)
-                .foreignKey("fk_seasons_anime")
-                .fromTable("seasons").foreignColumn("anime")
+                .foreignKey("fk_season_anime")
+                .fromTable("season").foreignColumn("anime")
                 .toTable("anime").primaryColumn("id")
 
                 .addColumn("type").asString(36)
-                .foreignKey("fk_seasons_types")
-                .fromTable("seasons").foreignColumn("type")
-                .toTable("types").primaryColumn("id")
+                .foreignKey("fk_season_type")
+                .fromTable("season").foreignColumn("type")
+                .toTable("type").primaryColumn("id")
 
                 .addColumn("ut_ins").asString(36)
                 .addColumn("dt_ins").as(JDBCType.TIMESTAMP)
                 .addColumn("ut_upd").asString(36)
-                .addColumn("dt_upd").as(JDBCType.TIMESTAMP)
-                .foreignKey("fk_seasons_user_ins")
-                .fromTable("seasons").foreignColumn("ut_ins")
-                .toTable("users").primaryColumn("id")
-                .foreignKey("fk_seasons_user_upd")
-                .fromTable("seasons").foreignColumn("ut_upd")
-                .toTable("users").primaryColumn("id");
+                .addColumn("dt_upd").as(JDBCType.TIMESTAMP);
     }
 
     @Override
     public void down() {
-        migration.deleteTable("seasons");
+        migration.deleteTable("season");
     }
 }

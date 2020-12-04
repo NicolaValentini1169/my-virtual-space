@@ -16,7 +16,7 @@ public class M007CreateTableAnimeGenre extends JFMigrationClass {
                 .toTable("anime").primaryColumn("id")
                 .foreignKey("fk_anime_genre_genre")
                 .fromTable("anime_genre").foreignColumn("genre")
-                .toTable("genres").primaryColumn("id");
+                .toTable("genre").primaryColumn("id");
     }
 
     @Override
