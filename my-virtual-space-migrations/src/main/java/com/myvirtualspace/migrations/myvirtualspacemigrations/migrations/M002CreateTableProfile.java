@@ -5,17 +5,17 @@ import net.fasolato.jfmigrate.Migration;
 
 import java.sql.JDBCType;
 
-@Migration(number = 5)
-public class M005CreateTableAnime extends JFMigrationClass {
+@Migration(number = 2)
+public class M002CreateTableProfile extends JFMigrationClass {
 
     @Override
     public void up() {
-        migration.createTable("anime")
+        migration.createTable("profile")
                 .addColumn("id").asString(36).primaryKey()
-                .addColumn("title").asString(255)
-                .addColumn("finished").as(JDBCType.BOOLEAN).defaultValue(false)
-                .addColumn("comment").asString(1000)
-                .addColumn("nota").asString(1000)
+                .addColumn("name").asString(255).notNullable()
+                .addColumn("surname").asString(255).notNullable()
+                .addColumn("nickname").asString(255).notNullable()
+                .addColumn("password").asString(255).notNullable()
                 .addColumn("deleted").as(JDBCType.BOOLEAN).defaultValue(false)
                 .addColumn("ut_ins").asString(36)
                 .addColumn("dt_ins").as(JDBCType.TIMESTAMP)
@@ -25,6 +25,6 @@ public class M005CreateTableAnime extends JFMigrationClass {
 
     @Override
     public void down() {
-        migration.deleteTable("anime");
+        migration.deleteTable("profile");
     }
 }
