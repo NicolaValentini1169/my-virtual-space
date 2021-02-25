@@ -9,14 +9,23 @@ public class M007CreateTableAnimeGenre extends JFMigrationClass {
     @Override
     public void up() {
         migration.createTable("anime_genre")
-                .addColumn("anime").asString(36).primaryKey()
-                .addColumn("genre").asString(36).primaryKey()
-                .foreignKey("fk_anime_genres_anime")
-                .fromTable("anime_genres").foreignColumn("anime")
+                .addColumn("anime_id").asString(36)
+                .foreignKey("fk_anime_genre_anime")
+                .fromTable("anime_genre").foreignColumn("anime_id")
                 .toTable("anime").primaryColumn("id")
-                .foreignKey("fk_anime_genres_genres")
-                .fromTable("anime_genres").foreignColumn("genre")
+
+                .addColumn("genre_id").asString(36)
+                .foreignKey("fk_anime_genre_genres")
+                .fromTable("anime_genre").foreignColumn("genre_id")
                 .toTable("genres").primaryColumn("id");
+
+        migration.executeSql("INSERT INTO anime_genre VALUES ( " +
+                " '69af548c-3d42-429e-8081-17709246b37f', " +
+                " '01b6c76c-8207-434a-bf55-42bb72bf5d61' )");
+
+        migration.executeSql("INSERT INTO anime_genre VALUES ( " +
+                " '69af548c-3d42-429e-8081-17709246b37f', " +
+                " 'eb9781e0-4fd7-44dc-83de-da347e107057' )");
     }
 
     @Override
