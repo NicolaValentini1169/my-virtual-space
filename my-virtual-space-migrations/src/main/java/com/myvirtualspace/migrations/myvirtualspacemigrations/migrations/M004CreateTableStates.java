@@ -18,7 +18,7 @@ public class M004CreateTableStates extends JFMigrationClass {
                 .addColumn("ut_upd").asString(36)
                 .addColumn("dt_upd").as(JDBCType.TIMESTAMP);
 
-        migration.executeSql("INSERT INTO genres VALUES ( " +
+        migration.executeSql("INSERT INTO states VALUES ( " +
                 " 'afc4c5d8-d3a4-4e59-a811-ac93759ce2e0', " +
                 " 'On Air', " +
                 " null, " +
