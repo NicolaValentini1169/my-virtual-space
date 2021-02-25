@@ -11,12 +11,12 @@ public class M007CreateTableAnimeGenre extends JFMigrationClass {
         migration.createTable("anime_genre")
                 .addColumn("anime").asString(36).primaryKey()
                 .addColumn("genre").asString(36).primaryKey()
-                .foreignKey("fk_anime_genre_anime")
-                .fromTable("anime_genre").foreignColumn("anime")
+                .foreignKey("fk_anime_genres_anime")
+                .fromTable("anime_genres").foreignColumn("anime")
                 .toTable("anime").primaryColumn("id")
-                .foreignKey("fk_anime_genre_genre")
-                .fromTable("anime_genre").foreignColumn("genre")
-                .toTable("genre").primaryColumn("id");
+                .foreignKey("fk_anime_genres_genres")
+                .fromTable("anime_genres").foreignColumn("genre")
+                .toTable("genres").primaryColumn("id");
     }
 
     @Override

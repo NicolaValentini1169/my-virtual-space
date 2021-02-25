@@ -5,14 +5,17 @@ import net.fasolato.jfmigrate.Migration;
 
 import java.sql.JDBCType;
 
-@Migration(number = 4)
-public class M004CreateTableType extends JFMigrationClass {
+@Migration(number = 2)
+public class M002CreateTableUsers extends JFMigrationClass {
 
     @Override
     public void up() {
-        migration.createTable("type")
+        migration.createTable("users")
                 .addColumn("id").asString(36).primaryKey()
-                .addColumn("description").asString(255).notNullable()
+                .addColumn("name").asString(255).notNullable()
+                .addColumn("surname").asString(255).notNullable()
+                .addColumn("nickname").asString(255).notNullable()
+                .addColumn("password").asString(255).notNullable()
                 .addColumn("deleted").as(JDBCType.BOOLEAN).defaultValue(false)
                 .addColumn("ut_ins").asString(36)
                 .addColumn("dt_ins").as(JDBCType.TIMESTAMP)
@@ -22,6 +25,6 @@ public class M004CreateTableType extends JFMigrationClass {
 
     @Override
     public void down() {
-        migration.deleteTable("type");
+        migration.deleteTable("users");
     }
 }
