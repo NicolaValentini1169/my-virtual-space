@@ -1,6 +1,6 @@
 package com.myvirtualspace.migrations.myvirtualspacemigrations;
 
-import com.myvirtualspace.migrations.myvirtualspacemigrations.migrations.M002CreateTableProfile;
+import com.myvirtualspace.migrations.myvirtualspacemigrations.migrations.M002CreateTableUsers;
 import net.fasolato.jfmigrate.JFMigrate;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
@@ -70,7 +70,7 @@ public class MyVirtualSpaceMigrationsApplication implements CommandLineRunner {
         }
 
         JFMigrate migrate = new JFMigrate();
-        migrate.registerPackage(M002CreateTableProfile.class);
+        migrate.registerPackage(M002CreateTableUsers.class);
         if (cmd.hasOption("u")) {
             //Migration UP
             log.info("Migrating UP");
