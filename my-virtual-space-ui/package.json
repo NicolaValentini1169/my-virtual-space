@@ -14,17 +14,27 @@
     "@testing-library/user-event": "^12.3.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
+    "browserslist": "^4.16.0",
+    "caniuse-lite": "^1.0.30001165",
+    "core-js": "^3.8.1",
     "date-fns": "^2.16.1",
     "font-awesome": "^4.7.0",
     "joi-browser": "^13.4.0",
     "joi-i18n": "^13.1.4",
     "jquery": "^3.5.1",
     "jquery-mask-plugin": "^1.14.16",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
+    "popper.js": "^1.16.1",
     "react": "^17.0.1",
+    "react-date-picker": "^8.0.5",
     "react-dom": "^17.0.1",
+    "react-notification-system": "^0.4.0",
+    "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-select": "3.1.1",
+    "react-toastify": "^6.1.0",
     "redux": "^4.0.5",
     "tether": "^1.4.7",
     "web-vitals": "^0.2.4"
@@ -33,7 +43,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --debug ./src --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -41,17 +52,51 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not ie <= 11",
-      "not op_mini all"
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "babel": {
+    "plugins": [
+      "@babel/proposal-class-properties",
+      "@babel/proposal-object-rest-spread",
+      "inline-import-data-uri",
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "regenerator": true
+        }
+      ]
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      "minify"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-proposal-class-properties"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/preset-react": "^7.12.10",
+    "babel-eslint": "^10.1.0",
+    "babel-plugin-inline-import-data-uri": "^1.0.1",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-app": "^6.2.2",
+    "prettier": "^2.2.1"
   }
 }

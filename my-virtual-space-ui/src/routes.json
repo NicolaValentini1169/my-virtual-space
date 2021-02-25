@@ -1,0 +1,6 @@
+{
+  "home": "/",
+  "login": "/login",
+  "notFound": "/not-found",
+  "names": {}
+}

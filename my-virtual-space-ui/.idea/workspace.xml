@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:feature" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4e897e80-4f1e-4013-842d-bb1f892b323b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../my-virtual-space-migrations/src/main/java/com/myvirtualspace/migrations/myvirtualspacemigrations/MyVirtualSpaceMigrationsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space-migrations/src/main/java/com/myvirtualspace/migrations/myvirtualspacemigrations/MyVirtualSpaceMigrationsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/my-virtual-space-ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/my-virtual-space-ui.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/include/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-virtual-space/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/EntityStamperListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/EntityStamperListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/StampedBaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/StampedBaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-virtual-space/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="2" />
+  </component>
+  <component name="ProjectId" id="1l9OWwsPoQk02a4ektq09vtvjrJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/api" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\ut1169\Desktop\my-virtual-space\my-virtual-space-ui\node_modules\prettier" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ut1169\Documents\my-virtual-space\my-virtual-space-ui\src\api" />
+      <recent name="C:\Users\ut1169\Desktop\my-virtual-space\my-virtual-space-ui\src\images" />
+      <recent name="C:\Users\ut1169\Desktop\my-virtual-space\my-virtual-space-ui\src\components\common" />
+      <recent name="C:\Users\ut1169\Desktop\my-virtual-space\my-virtual-space-ui\src\components\login" />
+      <recent name="C:\Users\ut1169\Desktop\my-virtual-space\my-virtual-space-ui\src\components" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ut1169\Desktop\my-virtual-space\my-virtual-space-ui\src\components\login" />
+      <recent name="C:\Users\ut1169\Desktop\my-virtual-space\my-virtual-space-ui\src\components" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.npm start">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4e897e80-4f1e-4013-842d-bb1f892b323b" name="Default Changelist" comment="" />
+      <created>1607005875984</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1607005875984</updated>
+      <workItem from="1607005877084" duration="133000" />
+      <workItem from="1607006033841" duration="25000" />
+      <workItem from="1607018562517" duration="701000" />
+      <workItem from="1607351629060" duration="3356000" />
+      <workItem from="1607863298340" duration="8266000" />
+      <workItem from="1607934048419" duration="3315000" />
+      <workItem from="1607937854272" duration="772000" />
+      <workItem from="1607956674276" duration="3060000" />
+      <workItem from="1613379031395" duration="22601000" />
+      <workItem from="1613478576587" duration="7338000" />
+      <workItem from="1614184717793" duration="2705000" />
+      <workItem from="1614247112921" duration="4000" />
+      <workItem from="1614247135554" duration="687000" />
+      <workItem from="1614269728029" duration="376000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

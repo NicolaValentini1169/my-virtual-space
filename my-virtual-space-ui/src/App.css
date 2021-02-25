@@ -1,38 +1,311 @@
-.App {
-    text-align: center;
+:root {
+    /*--mvs-color: #5cff5c;*/
+    --mvs-color: #25F6CE;
+    --bg-color: #222222;
+    --home-border: #858585;
+
+    /* For media queries */
+    --header-font-size: xx-large;
+    --navbar-font-size: x-large;
+    --body-font-size: medium;
+    --version-number-font-size: medium;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
+@media (max-width: 999px), (max-height: 899px) {
+    :root {
+        --header-font-size: x-large;
+        --navbar-font-size: large;
     }
 }
 
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
+@media (max-width: 599px), (max-height: 699px) {
+    :root {
+        --header-font-size: large;
+        --navbar-font-size: medium;
+        --version-number-font-size: small;
+    }
+}
+
+@media (max-width: 399px), (max-height: 549px) {
+    :root {
+        --header-font-size: medium;
+        --navbar-font-size: small;
+        --body-font-size: small;
+        --version-number-font-size: x-small;
+    }
+}
+
+@media (max-width: 359px), (max-height: 419px) {
+    :root {
+        --header-font-size: small;
+        --navbar-font-size: x-small;
+        --body-font-size: x-small;
+        --version-number-font-size: xx-small;
+    }
+}
+
+@media (max-width: 299px),(max-height: 369px) {
+    :root {
+        --header-font-size: x-small;
+        --navbar-font-size: xx-small;
+        --body-font-size: xx-small;
+    }
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--mvs-color);
+    width: 100vw;
+    height: 100vh;
+    text-align: -webkit-center;
+    font-size: var(--body-font-size);
+}
+
+main {
+    width: 80%;
+    height: 100vh;
+}
+
+.header {
+    height: 5vh;
+    font-family: "Magneto", serif;
+    font-size: var(--header-font-size);
+}
+
+.home {
+    height: 90vh;
+    border: 1px solid var(--home-border);
+}
+
+.footer {
+    height: 5vh;
+    font-family: "Magneto", serif;
+}
+
+.btn-my-virtual-space-color {
+    background-color: var(--mvs-color);
+    color: black;
+}
+
+.version-number {
+    position: fixed;
+    bottom: 0;
+    left: 0;
     color: white;
+    opacity: 0.3;
+    font-size: var(--version-number-font-size);
 }
 
-.App-link {
-    color: #61dafb;
+.clickable {
+    cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* --------------------------------------------------------BG IMAGE INIZIO----------------------------------------------------- */
+
+.masthead {
+    height: 40vh;
+    position: relative;
+    background: var(--mvs-color) url('./images/world.jpg') no-repeat center center;
+    background-size: cover;
 }
+
+/* ---------------------------------------------------------BG IMAGE FINE------------------------------------------------------ */
+
+/* ---------------------------------------------------------NAVBAR INIZIO------------------------------------------------------ */
+
+.navbar, #navbar {
+    height: 5vh;
+    font-size: var(--navbar-font-size);
+    font-family: "Magneto", sans-serif;
+    width: 100%;
+
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    margin: 0 1vw;
+    padding: 0;
+}
+
+.nav-link {
+    background-color: transparent;
+    color: var(--mvs-color) !important;
+    opacity: 0.7;
+    border: 0;
+    border-bottom: 2px;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid var(--mvs-color);
+    opacity: 1;
+}
+
+/* ----------------------------------------------------------NAVBAR FINE------------------------------------------------------- */
+
+/* ----------------------------------------------------LOADING SPINNER INIZIO-------------------------------------------------- */
+.sk-folding-cube {
+    margin: 20px auto;
+    margin-top: 20%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+}
+
+.sk-folding-cube .sk-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.sk-folding-cube .sk-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--mvs-color);
+    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
+    animation: sk-foldCubeAngle 2.4s infinite linear both;
+    -webkit-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+}
+
+.sk-folding-cube .sk-cube2 {
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+    transform: scale(1.1) rotateZ(90deg);
+}
+
+.sk-folding-cube .sk-cube3 {
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+    transform: scale(1.1) rotateZ(180deg);
+}
+
+.sk-folding-cube .sk-cube4 {
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+    transform: scale(1.1) rotateZ(270deg);
+}
+
+.sk-folding-cube .sk-cube2:before {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+}
+
+.sk-folding-cube .sk-cube3:before {
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
+
+.sk-folding-cube .sk-cube4:before {
+    -webkit-animation-delay: 0.9s;
+    animation-delay: 0.9s;
+}
+
+/* ----------------------------------------------------LOADING SPINNER FINE-------------------------------------------------- */
+
+/* ------------------------------------------------BTN OUTLINE MVS COLOR INIZIO---------------------------------------------- */
+
+.btn-outline-mvs-color {
+    color: var(--mvs-color);
+    border-color: var(--mvs-color);
+}
+
+.btn-outline-mvs-color:hover {
+    color: var(--bg-color);
+    background-color: var(--mvs-color);
+    border-color: var(--mvs-color);
+}
+
+.btn-outline-mvs-color:focus,
+.btn-outline-mvs-color.focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+
+.btn-outline-mvs-color.disabled,
+.btn-outline-mvs-color:disabled {
+    color: var(--mvs-color);
+    background-color: transparent;
+}
+
+.btn-outline-mvs-color:not(:disabled):not(.disabled):active,
+.btn-outline-mvs-color:not(:disabled):not(.disabled).active,
+.show > .btn-outline-mvs-color.dropdown-toggle {
+    color: var(--bg-color);
+    background-color: var(--mvs-color);
+    border-color: var(--mvs-color);
+}
+
+.btn-outline-mvs-color:not(:disabled):not(.disabled):active:focus,
+.btn-outline-mvs-color:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-mvs-color.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+
+/* -------------------------------------------------BTN OUTLINE MVS COLOR FINE----------------------------------------------- */
+
+/* ----------------------------------------------------TABLE OVERLAY INIZIO-------------------------------------------------- */
+/*.overlay {*/
+/*    position: relative;*/
+/*    transition: 0.5s ease;*/
+/*}*/
+
+/*.overlay:hover {*/
+/*    !*background-color: rgba(52, 58, 64, 0.1);*! !*--- NERO ---*!*/
+/*    !* background-color:rgba(136, 196, 255, 0.17);*! !*AZZURRO CHIARO*!*/
+/*    transition: 0.3s ease-in;*/
+/*    -webkit-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.78);*/
+/*    -moz-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.78);*/
+/*    box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.78);*/
+/*}*/
+
+/*.tr-speed-dial-height {*/
+/*    height: 4rem;*/
+/*}*/
+
+/*.table-wrapper {*/
+/*    overflow-x: auto;*/
+/*    margin-bottom: 1rem;*/
+/*    padding-bottom: 3.5em;*/
+/*}*/
+
+/*.table-wrapper::-webkit-scrollbar-track {*/
+/*    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
+/*    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
+/*    border-radius: 10px;*/
+/*    background-color: #f5f5f5;*/
+/*}*/
+
+/*.table-wrapper::-webkit-scrollbar {*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    background-color: #f5f5f5;*/
+/*}*/
+
+/*.table-wrapper::-webkit-scrollbar-thumb {*/
+/*    border-radius: 10px;*/
+/*    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
+/*    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);*/
+/*    background-color: var(--mvs-color);*/
+/*}*/
+
+/*.table-nowrap th {*/
+/*    white-space: normal;*/
+/*}*/
+
+/*table {*/
+/*    text-align: center;*/
+/*    white-space: pre-wrap !important;*/
+/*}*/
+
+/*.table td {*/
+/*    padding: 0.75rem;*/
+/*    vertical-align: top;*/
+/*    border-top: 1px solid rgba(139, 141, 142, 0.42);*/
+/*}*/
+/* ----------------------------------------------------TABLE OVERLAY FINE-------------------------------------------------- */

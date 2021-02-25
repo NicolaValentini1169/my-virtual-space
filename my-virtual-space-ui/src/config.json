@@ -1,0 +1,10 @@
+{
+  "apiLoginEndpoint": "[REACT_APP_URL_JAVA]/api/login",
+  "apiRegistrationEndpoint": "[REACT_APP_URL_JAVA]/api/registration",
+  "apiCheckTokenEndpoint": "[REACT_APP_URL_JAVA]/api/checkToken",
+  "apiUserEndpoint": "[REACT_APP_URL_JAVA]/api/user",
+  "apiAnimeEndpoint": "[REACT_APP_URL_JAVA]/api/anime",
+  "apiSeasonEndpoint": "[REACT_APP_URL_JAVA]/api/season",
+  "apiGenreEndpoint": "[REACT_APP_URL_JAVA]/api/genre",
+  "apiStateEndpoint": "[REACT_APP_URL_JAVA]/api/state"
+}

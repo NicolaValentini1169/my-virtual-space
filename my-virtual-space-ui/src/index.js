@@ -5,11 +5,12 @@ import './include/bootstrap';
 import 'font-awesome/css/font-awesome.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom";
 
 ReactDOM.render(
-    <React.StrictMode>
+    <BrowserRouter>
         <App/>
-    </React.StrictMode>,
+    </BrowserRouter>,
     document.getElementById('root')
 );
 

@@ -1,0 +1,21 @@
+{
+  "login": "Login",
+  "registration": "Registrati",
+  "accessToken": "ACCESS_TOKEN",
+  "placeHolderFiltro": "Cerca...",
+  "genericAPIError": "Qualcosa non ha funzionato! Riprovare.",
+  "apiError": {
+    "fileOverMaxSize": "Dimensione massima del file superata!",
+    "uploadFileError": "Qualcosa non va, controlla il file prima di caricarlo",
+    "attivitaNotFound": "Non è stato possibile trovare attività"
+  },
+  "noAuthorization": "Non sei abilitato!",
+  "number": {
+    "thousandSeparator": ".",
+    "decimalSeparator": ",",
+    "decimalScale": 2,
+    "decimalScalePercent": 2,
+    "decimalScaleMDs": 2,
+    "maxValue": 1000000000000
+  }
+}
