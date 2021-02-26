@@ -25,24 +25,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e897e80-4f1e-4013-842d-bb1f892b323b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../my-virtual-space-migrations/src/main/java/com/myvirtualspace/migrations/myvirtualspacemigrations/MyVirtualSpaceMigrationsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space-migrations/src/main/java/com/myvirtualspace/migrations/myvirtualspacemigrations/MyVirtualSpaceMigrationsApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/my-virtual-space-ui.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/my-virtual-space-ui.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/include/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/include/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupTests.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my-virtual-space/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/EntityStamperListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/EntityStamperListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/StampedBaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/src/main/java/com/myvirtualspace/myvirtualspaceapplication/entities/stamping/StampedBaseEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../my-virtual-space/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../my-virtual-space/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,6 +94,10 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Debug Application" />
+      <item itemvalue="npm.npm start" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
