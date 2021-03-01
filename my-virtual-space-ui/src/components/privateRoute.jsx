@@ -10,7 +10,8 @@ const checkProfileForRoute = (path) => {
     if (localStorage.getItem(constants.accessToken)) {
         // let jwt = jwtDecode(localStorage.getItem(constants.accessToken));
 
-        if (path === routes.home) {
+        hasPermission = true;
+        if (path === routes.anime) {
             hasPermission = true;
         }
     }

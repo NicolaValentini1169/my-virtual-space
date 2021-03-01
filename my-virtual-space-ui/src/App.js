@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import config from './config.json';
@@ -9,21 +9,22 @@ import Home from './components/home';
 import Login from './components/login/login';
 import './App.css';
 import PrivateRoute from './components/privateRoute';
-import NotFound from './components/notFound';
 import loginApi from "./components/login/loginApi";
 import $ from "jquery";
-import userApi from './api/userApi';
-import genreApi from './api/genreApi';
-import stateApi from './api/stateApi';
-import animeApi from './api/animeApi';
-import seasonApi from './api/seasonApi';
 
 class App extends Component {
     state = {
+        to: routes.home,
         currentUser: null,
         isAuthenticated: false,
         loading: false,
         fileLoading: false
+    };
+
+    setTo = value => {
+        if (this.to !== value) {
+            this.setState({to: value});
+        }
     };
 
     test = async () => {
@@ -214,14 +215,13 @@ class App extends Component {
                             )}
                         />
                         <PrivateRoute
-                            exact
-                            path={routes.home}
+                            path="*"
                             name="home"
                             component={Home}
                             onLogout={this.handleLogout}
+                            to={this.state.to}
+                            setTo={this.setTo}
                         />
-                        <Route path={routes.notFound} component={NotFound}/>
-                        <Redirect to={routes.notFound}/>
                     </Switch>
                 </main>
                 <div className="version-number">{process.env.REACT_APP_VERSION}</div>

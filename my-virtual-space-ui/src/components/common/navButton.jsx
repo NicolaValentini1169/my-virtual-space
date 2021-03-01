@@ -13,9 +13,7 @@ const NavButton = props => {
                     pathname: props.to,
                     state: props.state,
                 });
-                $('.nav-link, .dropdown-toggle').removeClass('active');
-                $('#' + props.id).addClass('active');
-
+                props.callback();
             }}
         >
             {props.label}
