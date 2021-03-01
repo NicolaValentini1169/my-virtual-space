@@ -314,6 +314,10 @@ td {
     border-right: 0 !important;
 }
 
+.td-0 {
+    border: 0 !important;
+}
+
 .row {
     margin-right: 0;
     margin-left: 0;
