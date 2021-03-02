@@ -1,14 +1,16 @@
-import React, {useEffect} from 'react';
-import * as $ from 'jquery';
+import React from 'react';
 import Header from "./header";
 import NavBar from "./common/navbar";
 import routes from '../routes.json';
 import AnimeList from "./anime/animeList";
+import {useSelector} from "react-redux";
 
-const Home = ({onLogout, to, setTo}) => {
+const Home = ({onLogout}) => {
+
+    const redirect = useSelector(state => state.redirect);
 
     const showContent = () => {
-        switch (to) {
+        switch (redirect) {
             case routes.anime:
                 return <AnimeList/>;
             case routes.test1:
@@ -45,7 +47,7 @@ const Home = ({onLogout, to, setTo}) => {
             <div className='home'>
                 {/* Qua ci va l'images slider */}
                 <header className='masthead'/>
-                <NavBar to={to} setTo={setTo}/>
+                <NavBar />
                 {showContent()}
             </div>
             <div className='footer'>

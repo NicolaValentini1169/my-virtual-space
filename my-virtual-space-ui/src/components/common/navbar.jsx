@@ -4,9 +4,13 @@ import routes from '../../routes';
 import constants from '../../constants';
 import NavButton from './navButton';
 import {useHistory} from "react-router";
+import {useSelector} from "react-redux";
+import store from '../../redux/store';
+import actions from "../../redux/actions";
 
-const NavBar = ({to, setTo}) => {
+const NavBar = () => {
     const history = useHistory();
+    const redirect = useSelector(state => state.redirect);
 
     const showLink = name => {
         let hasPermission = false;
@@ -25,7 +29,11 @@ const NavBar = ({to, setTo}) => {
     };
 
     const setActive = value => {
-        if (to === value) return " active "
+        if (redirect === value) return " active "
+    }
+
+    const setRedirect = (redirect) => {
+        store.dispatch(actions.setRedirect(redirect));
     }
 
     return (
@@ -59,7 +67,7 @@ const NavBar = ({to, setTo}) => {
                                 to={routes.home}
                                 history={history}
                                 className={`nav-item nav-link clickable ${setActive(routes.home)}`}
-                                callback={() => setTo(routes.home)}
+                                callback={() => setRedirect(routes.home)}
                             />
                         </li>
 
@@ -70,7 +78,7 @@ const NavBar = ({to, setTo}) => {
                                 to={routes.anime}
                                 history={history}
                                 className={`nav-item nav-link clickable ${setActive(routes.anime)}`}
-                                callback={() => setTo(routes.anime)}
+                                callback={() => setRedirect(routes.anime)}
                             />
                         </li>}
 
@@ -81,7 +89,7 @@ const NavBar = ({to, setTo}) => {
                                 to={routes.test1}
                                 history={history}
                                 className={`nav-item nav-link clickable ${setActive(routes.test1)}`}
-                                callback={() => setTo(routes.test1)}
+                                callback={() => setRedirect(routes.test1)}
                             />
                         </li>
 
@@ -92,7 +100,7 @@ const NavBar = ({to, setTo}) => {
                                 to={routes.test2}
                                 history={history}
                                 className={`nav-item nav-link clickable ${setActive(routes.test2)}`}
-                                callback={() => setTo(routes.test2)}
+                                callback={() => setRedirect(routes.test2)}
                             />
                         </li>
 
@@ -103,7 +111,7 @@ const NavBar = ({to, setTo}) => {
                                 to={routes.test3}
                                 history={history}
                                 className={`nav-item nav-link clickable ${setActive(routes.test3)}`}
-                                callback={() => setTo(routes.test3)}
+                                callback={() => setRedirect(routes.test3)}
                             />
                         </li>
                     </ul>

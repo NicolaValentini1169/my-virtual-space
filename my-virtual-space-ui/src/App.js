@@ -11,20 +11,15 @@ import './App.css';
 import PrivateRoute from './components/privateRoute';
 import loginApi from "./components/login/loginApi";
 import $ from "jquery";
+import {Provider} from 'react-redux'
+import store from "./redux/store";
 
 class App extends Component {
     state = {
-        to: routes.home,
         currentUser: null,
         isAuthenticated: false,
         loading: false,
         fileLoading: false
-    };
-
-    setTo = value => {
-        if (this.to !== value) {
-            this.setState({to: value});
-        }
     };
 
     test = async () => {
@@ -193,38 +188,38 @@ class App extends Component {
     render() {
         return (
             <React.Fragment>
-                <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
-                {/*this.props.location.pathname !== routes.notFound &&
+                <Provider store={store}>
+                    <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
+                    {/*this.props.location.pathname !== routes.notFound &&
                 this.props.location.pathname !== routes.login && (
                     <Navbar
                         currentUser={this.state.currentUser}
                     />
                 )*/}
-                <main>
-                    <Switch>
-                        <Route
-                            path={routes.login}
-                            exact
-                            render={props => (
-                                <Login
-                                    onLogin={this.handleLogin}
-                                    onRegistration={this.handleRegistration}
-                                    loading={this.state.loading}
-                                    {...props}
-                                />
-                            )}
-                        />
-                        <PrivateRoute
-                            path="*"
-                            name="home"
-                            component={Home}
-                            onLogout={this.handleLogout}
-                            to={this.state.to}
-                            setTo={this.setTo}
-                        />
-                    </Switch>
-                </main>
-                <div className="version-number">{process.env.REACT_APP_VERSION}</div>
+                    <main>
+                        <Switch>
+                            <Route
+                                path={routes.login}
+                                exact
+                                render={props => (
+                                    <Login
+                                        onLogin={this.handleLogin}
+                                        onRegistration={this.handleRegistration}
+                                        loading={this.state.loading}
+                                        {...props}
+                                    />
+                                )}
+                            />
+                            <PrivateRoute
+                                path="*"
+                                name="home"
+                                component={Home}
+                                onLogout={this.handleLogout}
+                            />
+                        </Switch>
+                    </main>
+                    <div className="version-number">{process.env.REACT_APP_VERSION}</div>
+                </Provider>
             </React.Fragment>
         );
     }
