@@ -4,9 +4,9 @@ import NavBar from "./common/navbar";
 import routes from '../routes.json';
 import AnimeList from "./anime/animeList";
 import {useSelector} from "react-redux";
+import SlideBook from "./SlideBook";
 
 const Home = ({onLogout}) => {
-
     const redirect = useSelector(state => state.redirect);
 
     const showContent = () => {
@@ -45,8 +45,7 @@ const Home = ({onLogout}) => {
         <>
             <Header onLogout={onLogout}/>
             <div className='home'>
-                {/* Qua ci va l'images slider */}
-                <header className='masthead'/>
+                <SlideBook />
                 <NavBar />
                 {showContent()}
             </div>
