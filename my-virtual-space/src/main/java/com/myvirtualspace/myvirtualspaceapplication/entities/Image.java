@@ -1,5 +1,6 @@
 package com.myvirtualspace.myvirtualspaceapplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -13,8 +14,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "images")
+public class Image implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -23,55 +24,56 @@ public class User implements Serializable {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "name")
+    private String nome;
 
-    @Column(name = "password")
-    private String password;
-
-    @ManyToMany(mappedBy = "users")
+    @JsonIgnore
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Image> images = new ArrayList<>();
+    @JoinTable(name = "image_user", joinColumns = @JoinColumn(name = "image_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users = new ArrayList<>();
 
-    public User() {}
+    public Image() {}
 
-    public User(UUID id, String username, String password) {
+    public Image(UUID id, String nome, List<User> users) {
         this.id = id;
-        this.username = username;
-        this.password = password;
+        this.nome = nome;
+        this.users = users;
     }
 
     public UUID getId() { return id; }
 
     public void setId(UUID id) { this.id = id; }
 
-    public String getUsername() { return username; }
+    public String getNome() { return nome; }
 
-    public void setUsername(String username) { this.username = username; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public String getPassword() { return password; }
+    public List<User> getUsers() { return users; }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setUsers(List<User> users) { this.users = users; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        Image image = (Image) o;
+        return Objects.equals(id, image.id) &&
+                Objects.equals(nome, image.nome) &&
+                Objects.equals(users, image.users);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password);
+        return Objects.hash(id, nome, users);
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Image{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", nome='" + nome + '\'' +
+                ", users=" + users +
                 '}';
     }
 }

@@ -104,6 +104,7 @@ main {
 
 .masthead {
     height: 40vh;
+    width: 100%;
     position: relative;
     background: var(--mvs-color) url('./images/world.jpg') no-repeat center center;
     background-size: cover;

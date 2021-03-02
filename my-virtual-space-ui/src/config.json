@@ -6,5 +6,6 @@
   "apiAnimeEndpoint": "[REACT_APP_URL_JAVA]/api/anime",
   "apiSeasonEndpoint": "[REACT_APP_URL_JAVA]/api/season",
   "apiGenreEndpoint": "[REACT_APP_URL_JAVA]/api/genre",
-  "apiStateEndpoint": "[REACT_APP_URL_JAVA]/api/state"
+  "apiStateEndpoint": "[REACT_APP_URL_JAVA]/api/state",
+  "apiImageEndpoint": "[REACT_APP_URL_JAVA]/api/image"
 }

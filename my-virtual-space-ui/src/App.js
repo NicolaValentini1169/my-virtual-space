@@ -23,6 +23,7 @@ class App extends Component {
     };
 
     test = async () => {
+        // console.log("image find all", await imageApi.findAll());
         // console.log("user find all", await userApi.findAll());
         // console.log("anime find all", await animeApi.findAll());
         // console.log("season find all", await seasonApi.findAll());

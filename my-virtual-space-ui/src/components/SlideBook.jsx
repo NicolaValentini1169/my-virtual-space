@@ -1,18 +1,26 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import 'swiper/swiper-bundle.css';
+import imageApi from "../api/imageApi";
 
 const SlideBook = () => {
-    useEffect(() => {
+    const [images, setImages] = useState([]);
 
+    useEffect(() => {
+        getImages().then(data => setImages(data));
     }, [])
 
-    // const fetchData = async () => {
-    //
-    // }
+    const getImages = async () => {
+        return await imageApi.findAll();
+    }
 
     return (
-        <div className="masthead"/>
+        console.log("images", images) || images.length
+            // ? <div className="masthead" style={{
+            //     'background': `url('data:image/jpeg;base64,${images[3]}') no-repeat center center`
+            // }}/>
+            ? <img className='masthead' src={`data:image/jpeg;base64,${images[3]}`} alt='missing_image'/>
+            : <div className="masthead"/>
     );
 }
 
