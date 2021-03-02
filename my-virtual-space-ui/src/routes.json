@@ -1,12 +1,14 @@
 {
-  "home": "/",
-  "login": "/login",
-  "notFound": "/not-found",
-  "anime": "/anime",
+  "urls": {
+    "home": "/",
+    "login": "/login",
+    "notFound": "/not-found",
+    "anime": "/anime",
 
-  "test1": "/test1",
-  "test2": "/test2",
-  "test3": "/test3",
+    "test1": "/test1",
+    "test2": "/test2",
+    "test3": "/test3"
+  },
 
   "names": {
     "home": "home",
@@ -15,5 +17,14 @@
     "test1": "test1",
     "test2": "test2",
     "test3": "test3"
+  },
+
+  "labels": {
+    "home": "Home",
+    "anime": "Anime",
+
+    "test1": "Test 1",
+    "test2": "Test 2",
+    "test3": "Test 3"
   }
 }

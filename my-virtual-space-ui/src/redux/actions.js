@@ -1,7 +1,7 @@
 import actionTypes from './actionTypes';
 import routes from '../routes.json';
 
-const setRedirect = (redirect = routes.home) => ({
+const setRedirect = (redirect = routes.urls.home) => ({
     type: actionTypes.SETREDIRECT,
     payload: {
         redirect

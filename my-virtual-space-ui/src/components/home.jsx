@@ -11,13 +11,13 @@ const Home = ({onLogout}) => {
 
     const showContent = () => {
         switch (redirect) {
-            case routes.anime:
+            case routes.urls.anime:
                 return <AnimeList/>;
-            case routes.test1:
+            case routes.urls.test1:
                 return <h1>TEST 1</h1>;
-            case routes.test2:
+            case routes.urls.test2:
                 return <h1>TEST 2</h1>;
-            case routes.test3:
+            case routes.urls.test3:
                 return <h1>TEST 3</h1>;
             default:
                 return getHomeContent;

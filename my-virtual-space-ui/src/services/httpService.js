@@ -23,7 +23,7 @@ axios.interceptors.response.use(null, error => {
         }
 
         if (shouldRedirect) {
-            window.location.replace(window.location.origin + routes.home);
+            window.location.replace(window.location.origin + routes.urls.home);
         }
     }
 

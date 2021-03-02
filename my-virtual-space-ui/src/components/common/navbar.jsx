@@ -3,13 +3,11 @@ import {withRouter} from 'react-router-dom';
 import routes from '../../routes';
 import constants from '../../constants';
 import NavButton from './navButton';
-import {useHistory} from "react-router";
 import {useSelector} from "react-redux";
 import store from '../../redux/store';
 import actions from "../../redux/actions";
 
 const NavBar = () => {
-    const history = useHistory();
     const redirect = useSelector(state => state.redirect);
 
     const showLink = name => {
@@ -62,56 +60,46 @@ const NavBar = () => {
                     <ul className="navbar-nav col-md-12 d-flex justify-content-center">
                         <li className="nav-item">
                             <NavButton
-                                label={'Home'}
+                                label={routes.labels.home}
                                 id={routes.names.home}
-                                to={routes.home}
-                                history={history}
-                                className={`nav-item nav-link clickable ${setActive(routes.home)}`}
-                                callback={() => setRedirect(routes.home)}
+                                className={`nav-item nav-link clickable ${setActive(routes.urls.home)}`}
+                                callback={() => setRedirect(routes.urls.home)}
                             />
                         </li>
 
                         {showLink("anime") && <li className="nav-item">
                             <NavButton
-                                label={'Anime'}
+                                label={routes.labels.anime}
                                 id={routes.names.anime}
-                                to={routes.anime}
-                                history={history}
-                                className={`nav-item nav-link clickable ${setActive(routes.anime)}`}
-                                callback={() => setRedirect(routes.anime)}
+                                className={`nav-item nav-link clickable ${setActive(routes.urls.anime)}`}
+                                callback={() => setRedirect(routes.urls.anime)}
                             />
                         </li>}
 
                         <li className="nav-item">
                             <NavButton
-                                label={'Test1'}
+                                label={routes.labels.test1}
                                 id={routes.names.test1}
-                                to={routes.test1}
-                                history={history}
-                                className={`nav-item nav-link clickable ${setActive(routes.test1)}`}
-                                callback={() => setRedirect(routes.test1)}
+                                className={`nav-item nav-link clickable ${setActive(routes.urls.test1)}`}
+                                callback={() => setRedirect(routes.urls.test1)}
                             />
                         </li>
 
                         <li className="nav-item">
                             <NavButton
-                                label={'Test2'}
+                                label={routes.labels.test2}
                                 id={routes.names.test2}
-                                to={routes.test2}
-                                history={history}
-                                className={`nav-item nav-link clickable ${setActive(routes.test2)}`}
-                                callback={() => setRedirect(routes.test2)}
+                                className={`nav-item nav-link clickable ${setActive(routes.urls.test2)}`}
+                                callback={() => setRedirect(routes.urls.test2)}
                             />
                         </li>
 
                         <li className="nav-item">
                             <NavButton
-                                label={'Test3'}
+                                label={routes.labels.test3}
                                 id={routes.names.test3}
-                                to={routes.test3}
-                                history={history}
-                                className={`nav-item nav-link clickable ${setActive(routes.test3)}`}
-                                callback={() => setRedirect(routes.test3)}
+                                className={`nav-item nav-link clickable ${setActive(routes.urls.test3)}`}
+                                callback={() => setRedirect(routes.urls.test3)}
                             />
                         </li>
                     </ul>

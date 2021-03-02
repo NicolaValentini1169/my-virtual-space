@@ -72,7 +72,7 @@ class App extends Component {
                 loading: false
             });
 
-            this.props.history.push(routes.home);
+            this.props.history.push(routes.urls.home);
 
             // if (user.id) {
             //     localStorage.setItem(constants.accessToken, user.accessToken);
@@ -88,7 +88,7 @@ class App extends Component {
             //         loading: false
             //     });
             //
-            //     this.props.history.push(routes.home);
+            //     this.props.history.push(routes.urls.home);
             // } else {
             //     this.setState({loading: false});
             //
@@ -119,7 +119,7 @@ class App extends Component {
                     loading: false
                 });
 
-                this.props.history.push(routes.home);
+                this.props.history.push(routes.urls.home);
             } else {
                 this.setState({loading: false});
 
@@ -149,7 +149,7 @@ class App extends Component {
     //         } else {
     //             localStorage.removeItem(constants.accessToken);
     //
-    //             this.props.history.replace(routes.login);
+    //             this.props.history.replace(routes.urls.login);
     //
     //             this.setState({
     //                 currentUser: null,
@@ -161,7 +161,7 @@ class App extends Component {
     //     } else {
     //         localStorage.removeItem(constants.accessToken);
     //
-    //         this.props.history.replace(routes.login);
+    //         this.props.history.replace(routes.urls.login);
     //
     //         this.setState({
     //             currentUser: null,
@@ -180,7 +180,7 @@ class App extends Component {
             fileLoading: false
         });
 
-        this.props.history.replace(routes.login);
+        this.props.history.replace(routes.urls.login);
     };
 
 //---------- Fine Login
@@ -191,7 +191,7 @@ class App extends Component {
                 <Provider store={store}>
                     <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
                     {/*this.props.location.pathname !== routes.notFound &&
-                this.props.location.pathname !== routes.login && (
+                this.props.location.pathname !== routes.urls.login && (
                     <Navbar
                         currentUser={this.state.currentUser}
                     />
@@ -199,7 +199,7 @@ class App extends Component {
                     <main>
                         <Switch>
                             <Route
-                                path={routes.login}
+                                path={routes.urls.login}
                                 exact
                                 render={props => (
                                     <Login
@@ -212,7 +212,7 @@ class App extends Component {
                             />
                             <PrivateRoute
                                 path="*"
-                                name="home"
+                                name={routes.names.home}
                                 component={Home}
                                 onLogout={this.handleLogout}
                             />

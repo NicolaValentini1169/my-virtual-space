@@ -2,7 +2,7 @@ import React from 'react';
 import {Redirect, Route} from 'react-router-dom';
 import routes from '../routes';
 import constants from '../constants';
-import {toast} from 'react-toastify';
+import {toastError} from "../utils/utils";
 
 const checkProfileForRoute = (path) => {
     let hasPermission = false;
@@ -11,7 +11,7 @@ const checkProfileForRoute = (path) => {
         // let jwt = jwtDecode(localStorage.getItem(constants.accessToken));
 
         hasPermission = true;
-        if (path === routes.anime) {
+        if (path === routes.urls.anime) {
             hasPermission = true;
         }
     }
@@ -38,8 +38,8 @@ const PrivateRoute = ({
                     <Redirect
                         to={
                             localStorage.getItem(constants.accessToken)
-                                ? toast.error(constants.noAuthorization) && routes.home
-                                : routes.login
+                                ? toastError(constants.noAuthorization) && routes.urls.home
+                                : routes.urls.login
                         }
                     />
                 )

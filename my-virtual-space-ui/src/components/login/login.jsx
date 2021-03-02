@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import $ from 'jquery';
-import {toast} from 'react-toastify';
-import jwtDecode from 'jwt-decode';
-import routes from '../../routes.json';
 import constants from '../../constants.json';
 import LoadingSpinner from '../common/loadingSpinner';
 import "./login.css";
@@ -31,7 +28,7 @@ const Login = props => {
         //         jwtDecode(localStorage.getItem(constants.accessToken)).cn +
         //         '!',
         //     );
-        //     props.history.replace(routes.home);
+        //     props.history.replace(routes.urls.home);
         // }
     }, [props])
 

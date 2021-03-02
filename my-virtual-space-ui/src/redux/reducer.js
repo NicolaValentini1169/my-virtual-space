@@ -1,7 +1,7 @@
 import actionTypes from './actionTypes';
 import routes from '../routes.json';
 
-export default function reducer(state = {redirect: routes.home}, action) {
+export default function reducer(state = {redirect: routes.urls.home}, action) {
     switch (action.type) {
         case actionTypes.SETREDIRECT: {
             if (action.payload.redirect !== state.redirect) {

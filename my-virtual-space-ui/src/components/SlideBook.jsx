@@ -7,9 +7,9 @@ const SlideBook = () => {
 
     }, [])
 
-    const fetchData = async () => {
-
-    }
+    // const fetchData = async () => {
+    //
+    // }
 
     return (
         <div className="masthead"/>

@@ -94,10 +94,12 @@ const findById = (id) => {
         });
 };
 
-export default {
+const animeApi = {
     saveAnime,
     updateAnime,
     deleteAnimeById,
     findAll,
     findById
 };
+
+export default animeApi;
