@@ -49,10 +49,51 @@
     "lint": "eslint --debug ./src --fix"
   },
   "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true
+    },
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-app/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "prettier"
+    ],
+    "rules": {
+      "react-app/react/react-in-jsx-scope": [
+        "warn"
+      ],
+      "linebreak-style": [
+        0,
+        "CRLF"
+      ],
+      "no-console": "warn"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all",
+    "useTabs": false,
+    "tabWidth": 2,
+    "semi": true,
+    "arrowParens": "avoid",
+    "endOfLine": "crlf"
   },
   "browserslist": [
     ">0.2%",
@@ -94,9 +135,9 @@
     "@babel/preset-react": "^7.12.10",
     "babel-eslint": "^10.1.0",
     "babel-plugin-inline-import-data-uri": "^1.0.1",
-    "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
-    "eslint-plugin-prettier": "^3.2.0",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-app": "^6.2.2",
     "prettier": "^2.2.1"
