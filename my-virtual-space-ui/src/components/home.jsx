@@ -27,7 +27,7 @@ const Home = ({onLogout}) => {
     const getHomeContent = <div className="d-flex">
         <div style={{width: '66%', border: '1px solid red'}}/>
         <div style={{width: '34%', border: '1px solid blue'}}>
-            <h5 className="pippo">Notifiche</h5>
+            <h5 className="font-magneto">Notifiche</h5>
             <div className="overlay ciccio">È usicta la nuova stagione per l'anime One Punch Man</div>
             <div className="overlay ciccio">È usicta la nuova stagione per l'anime One Punch Man</div>
             <div className="overlay ciccio">È usicta la nuova stagione per l'anime One Punch Man</div>
@@ -45,8 +45,8 @@ const Home = ({onLogout}) => {
         <>
             <Header onLogout={onLogout}/>
             <div className='home'>
-                <SlideBook />
-                <NavBar />
+                <SlideBook/>
+                <NavBar/>
                 {showContent()}
             </div>
             <div className='footer'>

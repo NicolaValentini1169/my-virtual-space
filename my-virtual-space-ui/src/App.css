@@ -68,8 +68,14 @@ main {
 
 .header {
     height: 5vh;
-    font-family: "Magneto", serif;
     font-size: var(--header-font-size);
+}
+
+.btn-log-out {
+    margin: 0.3vh 0.3vw!important;
+    border: 0!important;
+    padding: 0.4vh 0.5vw;
+    font-size: var(--navbar-font-size);
 }
 
 .home {
@@ -98,6 +104,22 @@ main {
 
 .clickable {
     cursor: pointer;
+}
+
+.font-magneto {
+    font-family: "Magneto", serif;
+}
+
+.color-black {
+    color: var(--bg-color);
+}
+
+.color-mvs-color {
+    color: var(--mvs-color);
+}
+
+.body-font-size {
+    font-size: var(--body-font-size);
 }
 
 /* --------------------------------------------------------BG IMAGE INIZIO----------------------------------------------------- */
@@ -329,10 +351,6 @@ td {
 }
 
 /* ----------------------------------------------------TABLE OVERLAY FINE-------------------------------------------------- */
-
-.pippo {
-    font-family: "Magneto", serif;
-}
 
 .ciccio {
     width: 95%;

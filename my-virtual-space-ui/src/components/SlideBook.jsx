@@ -36,8 +36,12 @@ const SlideBook = () => {
                 slideShadows: true,
             }}
         >
-            {!images.length
-                ? <SwiperSlide className="masthead"/>
+            {!images?.length
+                ? <SwiperSlide className="masthead d-flex align-items-end">
+                    <p className='text-center w-100 color-black font-magneto body-font-size'>
+                        Ci scusiamo per l'inconveniente ma non è riuscito il caricamento delle immagini.
+                    </p>
+                </SwiperSlide>
                 : images.map((image, index) =>
                     <SwiperSlide key={index}>
                         <img
@@ -51,6 +55,6 @@ const SlideBook = () => {
     );
 }
 
-// 'background': `url('data:image/jpeg;base64,${images[3]}') no-repeat center center`
+/* 'background': `url('data:image/jpeg;base64,${images[3]}') no-repeat center center` */
 
 export default SlideBook;

@@ -74,7 +74,7 @@ const findAll = () => {
             return images;
         })
         .catch(({response}) => {
-            toastError(response?.status === 400 && response.data?.message);
+            toastError(response?.status === 400 ? response.data?.message : "Errore durante il caricamento delle immagini.");
         });
 };
 
@@ -90,7 +90,7 @@ const findById = (id) => {
             return image;
         })
         .catch(({response}) => {
-            toastError((response?.status === 400 || response?.status === 404) && response.data?.message);
+            toastError((response?.status === 400 || response?.status === 404) ? response.data?.message : "Errore durante il caricamento dell'immagine.");
         });
 };
 

@@ -44,7 +44,7 @@ const NavBar = () => {
                 <div className="nav-item">
                     <button
                         type="button"
-                        className='navbar-toggler nav-item nav-link clickable'
+                        className='navbar-toggler nav-item nav-link clickable body-font-size'
                         tabIndex="-1"
                         data-toggle="collapse"
                         data-target="#navbar"
