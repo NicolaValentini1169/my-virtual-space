@@ -83,7 +83,9 @@
         0,
         "CRLF"
       ],
-      "no-console": "warn"
+      "no-console": "warn",
+      "react/proto-types": "off",
+      "prettier/prettier": "warn"
     }
   },
   "prettier": {

@@ -1,6 +1,6 @@
 package com.myvirtualspace.myvirtualspaceapplication.entities.stamping;
 
-import com.myvirtualspace.myvirtualspaceapplication.utils.AuthenticationUtils;
+import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.AuthenticationUtils;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -12,7 +12,7 @@ public class EntityStamperListener {
     @PreUpdate
     private void timestampEntity(TimestampAware entity) {
         Date now = new Date();
-        String username = AuthenticationUtils.getUserPrincipal();
+        String username = AuthenticationUtils.getUserName();
 
         // don't override creation date once it's been set
         if (entity.getId() == null || entity.getDtIns() == null) {
