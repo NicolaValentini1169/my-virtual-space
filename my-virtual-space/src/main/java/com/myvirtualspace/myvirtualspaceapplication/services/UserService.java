@@ -18,6 +18,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public UserRepository getUserRepository() { return userRepository; }
+
     public User save(User user) {
         return userRepository.save(user);
     }
