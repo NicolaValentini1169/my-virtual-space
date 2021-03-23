@@ -1,6 +1,6 @@
 package com.myvirtualspace.myvirtualspaceapplication.secutity;
 
-import com.myvirtualspace.myvirtualspaceapplication.secutity.entities.JWTUserDetails;
+import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.TokenFields;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.services.JWTUserDetailsService;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.JWTUtils;
 import org.slf4j.Logger;
@@ -33,9 +33,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             String jwt = JWTUtils.getJWTFromRequest(request);
 
             if (StringUtils.hasText(jwt) && JWTUtils.validateToken(jwt)) {
-                JWTUserDetails jwtUserDetails = JWTUtils.parseToken(jwt);
-
-                UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(jwtUserDetails.getUsername());
+                UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(JWTUtils.parseToken(jwt, TokenFields.USERNAME));
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails,

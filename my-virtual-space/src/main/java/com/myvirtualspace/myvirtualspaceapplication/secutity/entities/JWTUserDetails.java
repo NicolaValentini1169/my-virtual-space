@@ -12,8 +12,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class JWTUserDetails implements UserDetails, Serializable {
-
     private static final long serialVersionUID = 1L;
+
     private final UUID id;
     private final String username;
     @JsonIgnore
@@ -44,10 +44,6 @@ public class JWTUserDetails implements UserDetails, Serializable {
     public UUID getId() {
         return id;
     }
-
-    public Object getIat() { return this.getIat(); }
-
-    public Object getExp() { return this.getExp(); }
 
     @Override
     public String getUsername() { return username; }

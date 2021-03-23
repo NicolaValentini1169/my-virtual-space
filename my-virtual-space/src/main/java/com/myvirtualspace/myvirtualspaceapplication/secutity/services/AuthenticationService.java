@@ -2,11 +2,9 @@ package com.myvirtualspace.myvirtualspaceapplication.secutity.services;
 
 import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.BadRequestException;
 import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.NoAuthorizationException;
-import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.UnexpectedException;
 import com.myvirtualspace.myvirtualspaceapplication.dto.UserCredentials;
 import com.myvirtualspace.myvirtualspaceapplication.entities.User;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.SecurityConstants;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.entities.JWTAuthenticationResponse;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.entities.JWTUserDetails;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.JWTUtils;
 import com.myvirtualspace.myvirtualspaceapplication.services.UserService;
@@ -15,10 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class AuthenticationService {
@@ -28,19 +24,15 @@ public class AuthenticationService {
     @Autowired
     private UserService userService;
     @Autowired
-    PasswordEncoder passwordEncoder;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public String signIn(UserCredentials loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        JWTUserDetails jwtUserDetail = (JWTUserDetails) authentication.getPrincipal();
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = JWTUtils.generateJwtToken(authentication);
-
-        return jwt;
+        return JWTUtils.generateJwtToken(authentication);
     }
 
     public String signUp(UserCredentials registrationRequest) {
@@ -52,9 +44,9 @@ public class AuthenticationService {
             throw new BadRequestException(SecurityConstants.errorMessageWrongPassword);
         }
 
-        User user = new User(registrationRequest.getUsername(), passwordEncoder.encode(registrationRequest.getPassword()));
+        User user = new User(registrationRequest.getUsername(), bCryptPasswordEncoder.encode(registrationRequest.getPassword()));
 
-        // TODO Settare il ruolo con valore ROLE_USER
+        // TODO Settare il ruolo con valore ROLE_USER e le immagini di default
 
         userService.save(user);
 

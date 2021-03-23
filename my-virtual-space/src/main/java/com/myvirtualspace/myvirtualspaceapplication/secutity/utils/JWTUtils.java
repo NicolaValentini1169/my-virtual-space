@@ -1,9 +1,9 @@
 package com.myvirtualspace.myvirtualspaceapplication.secutity.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.SecurityConstants;
+import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.TokenFields;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.entities.JWTUserDetails;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,43 +18,21 @@ import java.time.DateTimeException;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 public class JWTUtils {
     private static final Logger log = LoggerFactory.getLogger(JWTUtils.class);
 
-    private static ObjectMapper getMapper() {
-        return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    }
-
     public static String generateJwtToken(Authentication authentication) {
-        return Jwts.builder()
+        return Jwts
+                .builder()
                 .setSubject(((JWTUserDetails) authentication.getPrincipal()).getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXIPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
     }
 
-    /**
-     * Method that generates JWT from JWT User Detail
-     *
-     * @param jwtUserDetail an JWTUserDetail object
-     * @return s String jwt
-     */
-    public static String generateToken(JWTUserDetails jwtUserDetail) {
-        String payload;
-
-        try {
-            payload = getMapper().writeValueAsString(jwtUserDetail);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
-
-        return Jwts.builder()
-                .setPayload(payload)
-                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
-                .compact();
-    }
 
     /**
      * Parses the authorization header into {@code JWTUserDetail} object.
@@ -64,13 +41,14 @@ public class JWTUtils {
      * @return a {@link JWTUserDetails}.
      * @throws IOException if the reading fails.
      */
-    public static JWTUserDetails parseToken(String authToken) throws IOException {
+    public static String parseToken(String authToken, TokenFields field) throws IOException {
         try {
-            return getMapper().readValue(
-                    new String(
-                            Base64.getDecoder().decode(authToken.split("\\.")[1]),
-                            StandardCharsets.UTF_8),
-                    JWTUserDetails.class);
+            return String.valueOf(new ObjectMapper()
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    .readValue(
+                            new String(Base64.getDecoder().decode(authToken.split("\\.")[1]), StandardCharsets.UTF_8),
+                            Map.class)
+                    .get(field.getValue()));
         } catch (IOException e) {
             log.error("Failed jwt parsing. Original header value: {}", authToken, e);
             throw e;
@@ -97,14 +75,12 @@ public class JWTUtils {
         try {
             Jwts.parser().setSigningKey(SecurityConstants.SECRET).parseClaimsJws(authToken);
 
-            JWTUserDetails jwtUserDetail = parseToken(authToken);
-
-            if (isTokenAhead(jwtUserDetail)) {
+            if (isTokenAhead(parseToken(authToken, TokenFields.IAT))) {
                 log.warn("Ahead JWT Token");
                 return false;
             }
 
-            if (isTokenExpired(jwtUserDetail)) {
+            if (isTokenExpired(parseToken(authToken, TokenFields.EXP))) {
                 log.warn("Expired JWT Token");
                 return false;
             }
@@ -130,19 +106,14 @@ public class JWTUtils {
     /**
      * Verifies if the token is ahead compared to the instant when arrived.
      *
-     * @param token the token.
+     * @param tokenIat the token iat.
      * @return true if token is ahead, false otherwise.
      */
-    public static boolean isTokenAhead(JWTUserDetails token) {
-        if (token.getIat() == null) {
-            log.warn("Missing iat field in token: {}", token);
-            return false;
-        }
-
+    public static boolean isTokenAhead(String tokenIat) {
         try {
-            Instant iat = Instant.ofEpochMilli((Long) token.getIat());
+            Instant iat = Instant.ofEpochMilli(Long.parseLong(tokenIat));
             return Instant.now().isBefore(iat);
-        } catch (DateTimeException | ArithmeticException e) {
+        } catch (DateTimeException | ArithmeticException | NumberFormatException e) {
             log.warn("Unparsable iat field", e);
             return false;
         }
@@ -151,19 +122,14 @@ public class JWTUtils {
     /**
      * Verifies if the token is expired.
      *
-     * @param token the token.
+     * @param tokenExp the token exp.
      * @return true if the token is expired, false otherwise.
      */
-    public static boolean isTokenExpired(JWTUserDetails token) {
-        if (token.getExp() == null) {
-            log.warn("Missing exp field in token: {}", token);
-            return true;
-        }
-
+    public static boolean isTokenExpired(String tokenExp) {
         try {
-            Instant exp = Instant.ofEpochMilli((Long) token.getExp());
+            Instant exp = Instant.ofEpochSecond(Long.parseLong(tokenExp));
             return Instant.now().isAfter(exp);
-        } catch (DateTimeException | ArithmeticException e) {
+        } catch (DateTimeException | ArithmeticException | NumberFormatException e) {
             log.warn("Unparsable exp field", e);
             return true;
         }
