@@ -1,7 +1,7 @@
-const SETREDIRECT = "setRedirect";
+const SETUSER = 'setUser';
 
 const actionTypes = {
-    SETREDIRECT
+  SETUSER,
 };
 
 export default actionTypes;

@@ -1,15 +1,14 @@
 import actionTypes from './actionTypes';
-import routes from '../routes.json';
 
-const setRedirect = (redirect = routes.urls.home) => ({
-    type: actionTypes.SETREDIRECT,
-    payload: {
-        redirect
-    }
-})
+const setUser = (user = null) => ({
+  type: actionTypes.SETUSER,
+  payload: {
+    user,
+  },
+});
 
 const actions = {
-    setRedirect
-}
+  setUser,
+};
 
 export default actions;
