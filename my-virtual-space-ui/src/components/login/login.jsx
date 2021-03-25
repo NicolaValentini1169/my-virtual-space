@@ -13,6 +13,7 @@ const Login = () => {
   const history = useHistory();
   const [credential, setCredential] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = e => {
@@ -47,53 +48,38 @@ const Login = () => {
 
     setLoading(false);
 
-    if (response?.message) {
-      setErrorMessage(response.message);
-      $('#login-error').removeClass('d-none').addClass('show');
-    } else {
-      //   localStorage.setItem(constants.accessToken, user.accessToken);
-      //
-      //   this.setState({
-      //     currentUser: {
-      //       id: user.id,
-      //       userName: user.username,
-      //       cn: user.cn,
-      //       ruoli: [...user.roles],
-      //     },
-      //     isAuthenticated: true
-      //   });
-      //
-      //   this.props.history.push(routes.urls.home);
+    if (response?.accessToken) {
+      localStorage.setItem(constants.accessToken, response.accessToken);
 
-      localStorage.setItem(constants.accessToken, response?.accessToken);
-
-      store.dispatch(actions.setUser({}));
+      store.dispatch(
+        actions.setUser({
+          id: response?.jwtUserDetail?.id,
+          username: response?.jwtUserDetail?.username,
+          roles: response?.jwtUserDetail?.authorities,
+        }),
+      );
 
       history.push(routes.urls.home);
+    } else {
+      setErrorMessage(response?.data?.message);
+      setShowErrorModal(true);
     }
   };
 
-  return loading ? (
-    <LoadingSpinner />
-  ) : (
-    <div>
-      <div className="login-form">
+  return (
+    <div className="login-form">
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
         <form className="form-signin" onSubmit={e => handleSubmit(e)}>
-          <div
-            id="login-error"
-            className="alert alert-danger alert-dismissible d-none"
-          >
-            <button
-              type="button"
-              className="close"
-              onClick={() =>
-                $('#login-error').addClass('d-none').removeClass('show')
-              }
+          {showErrorModal && (
+            <div
+              className="alert alert-danger alert-dismissible clickable"
+              onClick={() => setShowErrorModal(false)}
             >
-              &times;
-            </button>
-            <strong>Errore!</strong> {errorMessage}
-          </div>
+              <strong>Errore!</strong> {errorMessage}
+            </div>
+          )}
 
           <div className="text-center mb-4">
             <h1 className="h3 mb-3 font-weight-normal">
@@ -148,7 +134,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-      </div>
+      )}
     </div>
   );
 };

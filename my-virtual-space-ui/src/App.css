@@ -281,9 +281,9 @@ main {
   /*background-color: rgba(52, 58, 64, 0.1);*/ /*--- NERO ---*/
   /* background-color:rgba(136, 196, 255, 0.17);*/ /*AZZURRO CHIARO*/
   transition: 0.3s ease-in;
-  -webkit-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.78);
-  -moz-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.78);
-  box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.78);
+  -webkit-box-shadow: 0 0 15px -8px rgba(0, 0, 0, 0.78);
+  -moz-box-shadow: 0 0 15px -8px rgba(0, 0, 0, 0.78);
+  box-shadow: 0 0 15px -8px rgba(0, 0, 0, 0.78);
   background-color: var(--mvs-color);
   color: var(--bg-color);
 }

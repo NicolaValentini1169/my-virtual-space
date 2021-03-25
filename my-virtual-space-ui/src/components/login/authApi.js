@@ -10,22 +10,22 @@ const getConf = () => {
 const signIn = credential => {
   return http
     .post(config.apiLoginEndpoint, credential, getConf())
-    .then(({ data: jwt }) => {
-      return jwt;
+    .then(({ data }) => {
+      return data;
     })
-    .catch(onrejected => {
-      return onrejected;
+    .catch(({ response }) => {
+      return response;
     });
 };
 
 const signUp = credential => {
   return http
     .put(config.apiRegistrationEndpoint, credential, getConf())
-    .then(({ data: jwt }) => {
-      return jwt;
+    .then(({ data }) => {
+      return data;
     })
-    .catch(onrejected => {
-      return onrejected;
+    .catch(({ response }) => {
+      return response;
     });
 };
 
