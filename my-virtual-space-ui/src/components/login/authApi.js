@@ -20,7 +20,7 @@ const signIn = credential => {
 
 const signUp = credential => {
   return http
-    .put(config.apiRegistrationEndpoint, credential, getConf())
+    .post(config.apiRegistrationEndpoint, credential, getConf())
     .then(({ data }) => {
       return data;
     })
@@ -29,9 +29,9 @@ const signUp = credential => {
     });
 };
 
-const checkToken = path => {
+const checkToken = () => {
   if (localStorage.getItem(constants.accessToken)) {
-    http
+    return http
       .post(
         config.apiCheckTokenEndpoint,
         localStorage.getItem(constants.accessToken),
@@ -43,7 +43,7 @@ const checkToken = path => {
       .catch(error => {
         return null;
       });
-  }
+  } else return null;
 };
 
 const exports = {

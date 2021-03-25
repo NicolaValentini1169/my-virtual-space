@@ -28,8 +28,11 @@ public class LoginRestController {
     }
 
     @PostMapping("registration")
-    public ResponseEntity<String> registrationUser(@RequestBody UserCredentials registrationRequest) {
-        return ResponseEntity.ok(authenticationService.signUp(registrationRequest));
+    public ResponseEntity<JWTAuthenticationResponse> registrationUser(@RequestBody UserCredentials registrationRequest) {
+        return ResponseEntity.ok(new JWTAuthenticationResponse(
+                authenticationService.signUp(registrationRequest),
+                (JWTUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+        ));
     }
 
     @PostMapping("checkToken")

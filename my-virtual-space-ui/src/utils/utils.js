@@ -1,6 +1,6 @@
 import constants from '../constants.json';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 export const toastError = message => {
-    toast.error(message || constants.genericAPIError);
+  toast.error(message || constants.genericAPIError);
 };

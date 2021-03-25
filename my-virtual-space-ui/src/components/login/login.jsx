@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import $ from 'jquery';
+import React, { useEffect, useState } from 'react';
 import constants from '../../constants.json';
 import routes from '../../routes.json';
 import LoadingSpinner from '../common/loadingSpinner';
 import './login.css';
-import authApi from './authApi';
-import store from '../../redux/store';
-import actions from '../../redux/actions';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import jwtDecode from 'jwt-decode';
+import { handleSignIn, handleSignUp } from './authUtils';
 
 const Login = () => {
   const history = useHistory();
@@ -16,55 +15,46 @@ const Login = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (e.nativeEvent.submitter.name === constants.login) {
-      handleLogin(credential);
+      setLoading(true);
+
+      callback(await handleSignIn(credential));
+
+      setLoading(false);
     } else if (e.nativeEvent.submitter.name === constants.registration) {
-      // props.onRegistration(credential);
+      setLoading(true);
+
+      callback(await handleSignUp(credential));
+
+      setLoading(false);
     }
+  };
+
+  const callback = message => {
+    if (message) {
+      setShowErrorModal(true);
+      setErrorMessage(message);
+    } else history.push(routes.urls.home);
   };
 
   const handleChange = ({ currentTarget: input }) => {
     setCredential({ ...credential, [input.name]: input.value });
   };
 
-  // useEffect(() => {
-  //   // if (localStorage.getItem(constants.accessToken)) {
-  //   //     toast.info(
-  //   //         'Sei già autenticato ' +
-  //   //         jwtDecode(localStorage.getItem(constants.accessToken)).cn +
-  //   //         '!',
-  //   //     );
-  //   //     props.history.replace(routes.urls.home);
-  //   // }
-  // }, [props]);
-
-  const handleLogin = async () => {
-    setLoading(true);
-
-    const response = await authApi.signIn(credential);
-
-    setLoading(false);
-
-    if (response?.accessToken) {
-      localStorage.setItem(constants.accessToken, response.accessToken);
-
-      store.dispatch(
-        actions.setUser({
-          id: response?.jwtUserDetail?.id,
-          username: response?.jwtUserDetail?.username,
-          roles: response?.jwtUserDetail?.authorities,
-        }),
+  useEffect(() => {
+    if (localStorage.getItem(constants.accessToken)) {
+      toast.info(
+        'Sei già autenticato ' +
+          jwtDecode(localStorage.getItem(constants.accessToken)).username +
+          '!',
       );
 
-      history.push(routes.urls.home);
-    } else {
-      setErrorMessage(response?.data?.message);
-      setShowErrorModal(true);
+      history.replace(routes.urls.home);
     }
-  };
+  }, []);
 
   return (
     <div className="login-form">

@@ -3,13 +3,12 @@ import imageApi from '../api/imageApi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import SwiperCore, { Autoplay, EffectCoverflow } from 'swiper';
-import { useSelector } from 'react-redux';
+import constants from '../constants.json';
 
 SwiperCore.use([EffectCoverflow]);
 SwiperCore.use([Autoplay]);
 
 const SlideBook = () => {
-  const user = useSelector(state => state?.user);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const SlideBook = () => {
   };
 
   return (
-    user && (
+    localStorage.getItem(constants.accessToken) && (
       <Swiper
         slidesPerView={1}
         loop={true}

@@ -3,10 +3,8 @@ import { useHistory, withRouter } from 'react-router-dom';
 import routes from '../../routes';
 import constants from '../../constants';
 import NavButton from './navButton';
-import { useSelector } from 'react-redux';
 
 const NavBar = () => {
-  const user = useSelector(state => state.user);
   const history = useHistory();
 
   const showLink = name => {
@@ -30,7 +28,7 @@ const NavBar = () => {
   };
 
   return (
-    user && (
+    localStorage.getItem(constants.accessToken) && (
       <React.Fragment>
         <nav className="navbar navbar-expand-lg" id="top-navbar">
           <div className="nav-item">
