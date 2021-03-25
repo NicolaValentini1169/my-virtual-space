@@ -1,7 +1,7 @@
 {
   "login": "Login",
   "registration": "Registrati",
-  "accessToken": "ACCESS_TOKEN",
+  "accessToken": "MVS_TOKEN",
   "placeHolderFiltro": "Cerca...",
   "genericAPIError": "Qualcosa non ha funzionato! Riprovare.",
   "apiError": {

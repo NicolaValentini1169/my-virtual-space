@@ -3,11 +3,11 @@ import constants from '../../constants.json';
 import store from '../../redux/store';
 import actions from '../../redux/actions';
 
-export const handleSignIn = async (credential, callback) =>
-  handleResponse(await authApi.signIn(credential), callback);
+export const handleSignIn = async credential =>
+  handleResponse(await authApi.signIn(credential));
 
-export const handleSignUp = async (credential, callback) =>
-  handleResponse(await authApi.signUp(credential), callback);
+export const handleSignUp = async credential =>
+  handleResponse(await authApi.signUp(credential));
 
 export const handleSignOut = () => {
   deleteToken();
