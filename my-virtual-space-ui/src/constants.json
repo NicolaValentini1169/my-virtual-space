@@ -3,8 +3,9 @@
   "registration": "Registrati",
   "accessToken": "MVS_TOKEN",
   "placeHolderFiltro": "Cerca...",
-  "genericAPIError": "Qualcosa non ha funzionato! Riprovare.",
   "apiError": {
+    "genericError": "Qualcosa non ha funzionato! Riprovare.",
+    "networkError": "Problemi di rete! Riprovare.",
     "fileOverMaxSize": "Dimensione massima del file superata!",
     "uploadFileError": "Qualcosa non va, controlla il file prima di caricarlo",
     "attivitaNotFound": "Non è stato possibile trovare attività"

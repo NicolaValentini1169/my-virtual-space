@@ -18,7 +18,7 @@ const handleResponse = response => {
   if (response?.accessToken) {
     setToken(response.accessToken);
     setCurrentUser(response?.jwtUserDetail);
-  } else return response?.data?.message;
+  } else return response?.data?.message || constants.apiError.networkError;
 };
 
 export const setToken = token => {

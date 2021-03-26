@@ -3,9 +3,11 @@ import constants from '../constants.json';
 import routes from '../routes.json';
 import { handleSignOut } from './login/authUtils';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
   const history = useHistory();
+  const user = useSelector(state => state?.user);
 
   return (
     localStorage.getItem(constants.accessToken) && (
@@ -14,7 +16,7 @@ const Header = () => {
           My virtual Space
         </p>
         <p className="mb-0 d-flex align-items-end header float-right">
-          Dr.Niar
+          {user?.username}
           <button
             type="button"
             onClick={() => {
