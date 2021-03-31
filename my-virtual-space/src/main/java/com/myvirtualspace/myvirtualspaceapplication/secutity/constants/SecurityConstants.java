@@ -1,7 +1,5 @@
 package com.myvirtualspace.myvirtualspaceapplication.secutity.constants;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class SecurityConstants {
@@ -13,19 +11,17 @@ public class SecurityConstants {
     public static final String HEADER_STRING = "Authorization";
 
     /*-- Roles Constants --*/
-    public static final String USER = "ROLE_USER";
-    public static final String MODERATOR = "ROLE_MODERATOR";
-    public static final String ADMIN = "ROLE_ADMIN";
+    public static final String ROLE_USER_VALUE = "ROLE_USER";
+    public static final String ROLE_MODERATOR_VALUE = "ROLE_MODERATOR";
+    public static final String ROLE_ADMIN_VALUE = "ROLE_ADMIN";
+
+    public static final String ROLE_USER_ID = "2fdc5b4b-dbe1-4770-9465-5ab9bf959c88";
+    public static final String ROLE_MODERATOR_ID = "5086fd32-bb06-44b1-9882-1dd32ce4f671";
+    public static final String ROLE_ADMIN_ID = "e723d610-6bdc-423d-b88b-0b9b2fafe486";
 
     /*-- Error Messages Constants --*/
-    public static final String errorMessageWrongUsername = "Username già in uso";
-    public static final String errorMessageWrongPassword = "Password non valida";
-    public static final String errorMessageNotLogged = "Effettuare il login";
-    public static final String errorMessageInternalServerError = "Internal server error";
-
-    public static final Map<String, Integer> MAP_ROLES_TO_NUMBER = new HashMap<String, Integer>() {{
-        put(USER, 1);
-        put(MODERATOR, 2);
-        put(ADMIN, 3);
-    }};
+    public static final String ERROR_MESSAGE_WRONG_USERNAME = "Username già in uso";
+    public static final String ERROR_MESSAGE_WRONG_PASSWORD = "Password non valida";
+    public static final String ERROR_MESSAGE_NOT_LOGGED = "Effettuare il login";
+    public static final String ERROR_MESSAGE_INTERNAL_SERVER_ERROR = "Internal server error";
 }
