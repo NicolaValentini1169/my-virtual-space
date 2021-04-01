@@ -3,14 +3,14 @@ package com.myvirtualspace.myvirtualspaceapplication.controllers;
 import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.NotFoundException;
 import com.myvirtualspace.myvirtualspaceapplication.entities.Image;
 import com.myvirtualspace.myvirtualspaceapplication.services.ImageService;
+import com.myvirtualspace.myvirtualspaceapplication.utils.ErrorsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,21 +33,30 @@ public class ImageController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Image> deleteImageById(@RequestParam(value = "id", required = true, defaultValue = "") UUID id) {
-        return imageService.findById(id).map(image -> {
-            imageService.deleteById(image.getId());
-
-            return ResponseEntity.ok(image);
-        }).orElseThrow(() -> new NotFoundException("Immagine non trovata."));
+    public ResponseEntity<?> deleteImageById(@RequestParam(value = "id", defaultValue = "") UUID id) {
+        try {
+            return ResponseEntity.ok(imageService.deleteById(id));
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(ErrorsConstants.IMAGE_NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public ResponseEntity<List<?>> findAllImage() {
+    public ResponseEntity<List<String>> findAllImage() {
         return ResponseEntity.ok(imageService.findAll());
     }
 
     @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public ResponseEntity<Image> findImageById(@RequestParam(value = "id", required = true, defaultValue = "") UUID id) {
-        return imageService.findById(id).map(ResponseEntity::ok).orElseThrow(() -> new NotFoundException("Immagine non trovata."));
+    public ResponseEntity<?> findImageById(@RequestParam(value = "id", defaultValue = "") UUID id) {
+        String image = imageService.findById(id);
+
+        return image != null
+                ? ResponseEntity.ok(image)
+                : new ResponseEntity<>(ErrorsConstants.IMAGE_NOT_FOUND, HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "findByUserId", method = RequestMethod.GET)
+    public ResponseEntity<List<String>> findImageByUserId(@RequestParam(value = "id", defaultValue = "") UUID id) {
+        return ResponseEntity.ok(imageService.findByUserId(id));
     }
 }

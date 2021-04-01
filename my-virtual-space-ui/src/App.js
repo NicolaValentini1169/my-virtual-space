@@ -32,8 +32,9 @@ const App = () => {
       );
     }
 
-    (async () =>
-      (await handleCheckToken()) && history.push(routes.urls.login))();
+    handleCheckToken().then(jwt =>
+      jwt ? history.push(routes.urls.login) : history.push(routes.urls.home),
+    );
   }, [history]);
 
   return (

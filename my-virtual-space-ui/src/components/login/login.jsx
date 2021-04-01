@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import constants from '../../constants.json';
 import routes from '../../routes.json';
 import LoadingSpinner from '../common/loadingSpinner';
 import './login.css';
 import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import jwtDecode from 'jwt-decode';
 import { handleSignIn, handleSignUp } from '../../utils/authUtils';
 
 const Login = () => {
@@ -43,18 +41,6 @@ const Login = () => {
   const handleChange = ({ currentTarget: input }) => {
     setCredential({ ...credential, [input.name]: input.value });
   };
-
-  useEffect(() => {
-    if (localStorage.getItem(constants.accessToken)) {
-      toast.info(
-        'Sei già autenticato ' +
-          jwtDecode(localStorage.getItem(constants.accessToken)).username +
-          '!',
-      );
-
-      history.replace(routes.urls.home);
-    }
-  }, []);
 
   return (
     <div className="login-form">

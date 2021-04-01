@@ -19,7 +19,7 @@ export const handleSignOut = () => {
 };
 
 const handleResponse = response => {
-  if (response?.status !== 400) {
+  if (response && response?.status !== 400) {
     setToken(response);
     setCurrentUser(response);
   } else return response?.data || constants.apiError.networkError;

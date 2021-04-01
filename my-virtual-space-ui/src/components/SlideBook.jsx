@@ -3,24 +3,24 @@ import imageApi from '../api/imageApi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import SwiperCore, { Autoplay, EffectCoverflow } from 'swiper';
-import constants from '../constants.json';
+import { useSelector } from 'react-redux';
 
 SwiperCore.use([EffectCoverflow]);
 SwiperCore.use([Autoplay]);
 
 const SlideBook = () => {
   const [images, setImages] = useState([]);
+  const user = useSelector(state => state?.user);
 
   useEffect(() => {
-    getImages().then(data => setImages(data));
-  }, []);
-
-  const getImages = async () => {
-    return await imageApi.findAll();
-  };
+    (async () =>
+      user?.id && (await imageApi.findByUserId(user.id)))().then(data =>
+      setImages(data),
+    );
+  }, [user]);
 
   return (
-    localStorage.getItem(constants.accessToken) && (
+    user && (
       <Swiper
         slidesPerView={1}
         loop={true}
