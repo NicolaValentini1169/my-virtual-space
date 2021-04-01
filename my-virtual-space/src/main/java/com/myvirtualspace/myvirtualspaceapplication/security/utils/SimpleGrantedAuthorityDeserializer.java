@@ -1,4 +1,4 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.utils;
+package com.myvirtualspace.myvirtualspaceapplication.security.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

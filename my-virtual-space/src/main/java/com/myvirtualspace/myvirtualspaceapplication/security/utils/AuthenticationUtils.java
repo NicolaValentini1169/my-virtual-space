@@ -1,6 +1,6 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.utils;
+package com.myvirtualspace.myvirtualspaceapplication.security.utils;
 
-import com.myvirtualspace.myvirtualspaceapplication.secutity.entities.JWTUserDetails;
+import com.myvirtualspace.myvirtualspaceapplication.security.entities.JWTUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

@@ -1,10 +1,10 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.utils;
+package com.myvirtualspace.myvirtualspaceapplication.security.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.SecurityConstants;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.entities.JWTUserDetails;
+import com.myvirtualspace.myvirtualspaceapplication.security.constants.SecurityConstants;
+import com.myvirtualspace.myvirtualspaceapplication.security.entities.JWTUserDetails;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

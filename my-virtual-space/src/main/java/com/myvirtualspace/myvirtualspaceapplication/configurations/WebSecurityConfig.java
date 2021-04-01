@@ -1,8 +1,8 @@
 package com.myvirtualspace.myvirtualspaceapplication.configurations;
 
-import com.myvirtualspace.myvirtualspaceapplication.secutity.JWTAuthenticationEntryPoint;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.JWTAuthenticationFilter;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.services.JWTUserDetailsService;
+import com.myvirtualspace.myvirtualspaceapplication.security.JWTAuthenticationEntryPoint;
+import com.myvirtualspace.myvirtualspaceapplication.security.JWTAuthenticationFilter;
+import com.myvirtualspace.myvirtualspaceapplication.security.services.JWTUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

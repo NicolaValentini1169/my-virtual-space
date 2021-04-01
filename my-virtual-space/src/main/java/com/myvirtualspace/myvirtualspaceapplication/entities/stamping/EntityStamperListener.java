@@ -1,6 +1,6 @@
 package com.myvirtualspace.myvirtualspaceapplication.entities.stamping;
 
-import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.AuthenticationUtils;
+import com.myvirtualspace.myvirtualspaceapplication.security.utils.AuthenticationUtils;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;

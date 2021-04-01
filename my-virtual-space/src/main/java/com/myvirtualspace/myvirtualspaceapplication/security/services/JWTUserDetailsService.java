@@ -1,10 +1,10 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.services;
+package com.myvirtualspace.myvirtualspaceapplication.security.services;
 
 import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.BadRequestException;
 import com.myvirtualspace.myvirtualspaceapplication.entities.User;
 import com.myvirtualspace.myvirtualspaceapplication.repositories.UserRepository;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.SecurityConstants;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.entities.JWTUserDetails;
+import com.myvirtualspace.myvirtualspaceapplication.security.constants.SecurityConstants;
+import com.myvirtualspace.myvirtualspaceapplication.security.entities.JWTUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,7 +27,7 @@ public class JWTUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new BadRequestException("Username " + username + " non trovato"));
+                .orElseThrow(() -> new BadRequestException("Username " + username + " non trovato."));
 
         List<? extends GrantedAuthority> roles = Collections.singletonList(new SimpleGrantedAuthority(user.getRole().getRole()));
 

@@ -1,4 +1,4 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.constants;
+package com.myvirtualspace.myvirtualspaceapplication.security.constants;
 
 public enum TokenFields {
 

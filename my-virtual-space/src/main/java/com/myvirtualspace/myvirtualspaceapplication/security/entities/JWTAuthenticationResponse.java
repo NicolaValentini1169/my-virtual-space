@@ -1,4 +1,4 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.entities;
+package com.myvirtualspace.myvirtualspaceapplication.security.entities;
 
 public class JWTAuthenticationResponse {
 

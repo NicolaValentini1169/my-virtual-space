@@ -1,8 +1,8 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.entities;
+package com.myvirtualspace.myvirtualspaceapplication.security.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.SimpleGrantedAuthorityDeserializer;
+import com.myvirtualspace.myvirtualspaceapplication.security.utils.SimpleGrantedAuthorityDeserializer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

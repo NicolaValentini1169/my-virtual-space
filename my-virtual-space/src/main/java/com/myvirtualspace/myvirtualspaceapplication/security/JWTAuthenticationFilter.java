@@ -1,7 +1,7 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity;
+package com.myvirtualspace.myvirtualspaceapplication.security;
 
-import com.myvirtualspace.myvirtualspaceapplication.secutity.services.JWTUserDetailsService;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.JWTUtils;
+import com.myvirtualspace.myvirtualspaceapplication.security.services.JWTUserDetailsService;
+import com.myvirtualspace.myvirtualspaceapplication.security.utils.JWTUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
