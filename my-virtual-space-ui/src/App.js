@@ -14,12 +14,16 @@ import Header from './components/header';
 import NavBar from './components/common/navbar';
 import SlideBook from './components/SlideBook';
 import NotFound from './components/notFound';
+import { handleCheckToken } from './utils/authUtils';
+import { useHistory } from 'react-router';
 
 const Test = ({ num }) => {
   return <h1>TEST {num}</h1>;
 };
 
 const App = () => {
+  const history = useHistory();
+
   useEffect(() => {
     for (let api in config) {
       config[api] = config[api].replace(
@@ -28,8 +32,9 @@ const App = () => {
       );
     }
 
-    // this.handleCheckToken(this.props.location.pathname);
-  }, []);
+    (async () =>
+      (await handleCheckToken()) && history.push(routes.urls.login))();
+  }, [history]);
 
   return (
     <React.Fragment>
@@ -61,43 +66,5 @@ const App = () => {
     </React.Fragment>
   );
 };
-
-//   // handleCheckToken = async (path) => {
-//   //     const user = await loginApi.handleCheckToken(path);
-//   //
-//   //     if (user != null) {
-//   //         if (user.username !== '') {
-//   //             this.setState({
-//   //                 currentUser: {
-//   //                     id: user.id,
-//   //                     userName: user.username,
-//   //                     cn: user.cn,
-//   //                     ruoli: [...user.roles],
-//   //                 },
-//   //                 isAuthenticated: true,
-//   //             });
-//   //         } else {
-//   //             localStorage.removeItem(constants.accessToken);
-//   //
-//   //             this.props.history.replace(routes.urls.login);
-//   //
-//   //             this.setState({
-//   //                 currentUser: null,
-//   //                 isAuthenticated: false,
-//   //             });
-//   //         }
-//   //
-//   //         this.props.history.push(this.state.location);
-//   //     } else {
-//   //         localStorage.removeItem(constants.accessToken);
-//   //
-//   //         this.props.history.replace(routes.urls.login);
-//   //
-//   //         this.setState({
-//   //             currentUser: null,
-//   //             isAuthenticated: false,
-//   //         });
-//   //     }
-//   // }
 
 export default withRouter(App);

@@ -1,7 +1,7 @@
-import authApi from '../../api/authApi';
-import constants from '../../constants.json';
-import store from '../../redux/store';
-import actions from '../../redux/actions';
+import authApi from '../api/authApi';
+import constants from '../constants.json';
+import store from '../redux/store';
+import actions from '../redux/actions';
 import jwtDecode from 'jwt-decode';
 
 export const handleSignIn = async credential =>
@@ -9,6 +9,9 @@ export const handleSignIn = async credential =>
 
 export const handleSignUp = async credential =>
   handleResponse(await authApi.signUp(credential));
+
+export const handleCheckToken = async () =>
+  handleResponse(await authApi.checkToken());
 
 export const handleSignOut = () => {
   deleteToken();

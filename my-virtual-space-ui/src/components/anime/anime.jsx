@@ -118,4 +118,5 @@ const Anime = ({
     </tr>
   );
 };
+
 export default Anime;

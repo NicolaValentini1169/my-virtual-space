@@ -6,7 +6,7 @@ import './login.css';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import jwtDecode from 'jwt-decode';
-import { handleSignIn, handleSignUp } from './authUtils';
+import { handleSignIn, handleSignUp } from '../../utils/authUtils';
 
 const Login = () => {
   const history = useHistory();

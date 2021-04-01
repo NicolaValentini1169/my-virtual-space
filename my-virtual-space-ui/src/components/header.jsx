@@ -1,7 +1,7 @@
 import React from 'react';
 import constants from '../constants.json';
 import routes from '../routes.json';
-import { handleSignOut } from './login/authUtils';
+import { handleSignOut } from '../utils/authUtils';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
