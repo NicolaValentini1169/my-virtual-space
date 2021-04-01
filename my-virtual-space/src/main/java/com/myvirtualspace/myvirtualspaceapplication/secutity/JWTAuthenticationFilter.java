@@ -1,6 +1,5 @@
 package com.myvirtualspace.myvirtualspaceapplication.secutity;
 
-import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.TokenFields;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.services.JWTUserDetailsService;
 import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.JWTUtils;
 import org.slf4j.Logger;
@@ -23,17 +22,19 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     @Autowired
-    JWTUserDetailsService jwtUserDetailsService;
+    private JWTUserDetailsService jwtUserDetailsService;
+    @Autowired
+    private JWTUtils jwtUtils;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         try {
-            String jwt = JWTUtils.getJWTFromRequest(request);
+            String jwt = jwtUtils.getJWTFromRequest(request);
 
-            if (StringUtils.hasText(jwt) && JWTUtils.validateToken(jwt)) {
-                UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(JWTUtils.parseToken(jwt, TokenFields.USERNAME));
+            if (StringUtils.hasText(jwt) && jwtUtils.validateToken(jwt)) {
+                UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(jwtUtils.parseToken(jwt).getUsername());
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails,

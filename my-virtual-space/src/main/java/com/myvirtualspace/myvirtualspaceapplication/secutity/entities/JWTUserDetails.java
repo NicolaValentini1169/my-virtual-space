@@ -1,76 +1,175 @@
 package com.myvirtualspace.myvirtualspaceapplication.secutity.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.myvirtualspace.myvirtualspaceapplication.entities.User;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.SimpleGrantedAuthorityDeserializer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.UUID;
 
 public class JWTUserDetails implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final UUID id;
-    private final String username;
-    @JsonIgnore
-    private final String password;
-    private final Collection<? extends GrantedAuthority> roles;
+    private Long iat;
+    private Long exp;
+    /**
+     * User username
+     */
+    private String sub;
+    /**
+     * User roles
+     */
+    @JsonDeserialize(using = SimpleGrantedAuthorityDeserializer.class)
+    private Collection<? extends GrantedAuthority> roles;
+    /**
+     * User id
+     */
+    private UUID id;
+    /**
+     * User username
+     */
+    private String cn;
+    /**
+     * User password
+     */
+    private String password;
 
-    public JWTUserDetails(UUID id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.roles = authorities;
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
     }
 
-    public static JWTUserDetails build(User user) {
-//        List<GrantedAuthority> authorities = user.getRoles().stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-//                .collect(Collectors.toList());
+    @Override
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
 
-        // TODO Aggiungere roles
+    @Override
+    public String getUsername() {
+        return cn;
+    }
 
-        return new JWTUserDetails(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
-                new ArrayList<>());
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public Long getIat() {
+        return iat;
+    }
+
+    public void setIat(Long iat) {
+        this.iat = iat;
+    }
+
+    public Long getExp() {
+        return exp;
+    }
+
+    public void setExp(Long exp) {
+        this.exp = exp;
+    }
+
+    public String getSub() {
+        return sub;
+    }
+
+    public void setSub(String sub) {
+        this.sub = sub;
+    }
+
+    public Collection<? extends GrantedAuthority> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<? extends GrantedAuthority> roles) {
+        this.roles = roles;
     }
 
     public UUID getId() {
         return id;
     }
 
-    @Override
-    public String getUsername() { return username; }
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() { return roles; }
+    public String getCn() {
+        return cn;
+    }
 
-    @Override
-    public String getPassword() { return password; }
+    public void setCn(String cn) {
+        this.cn = cn;
+    }
 
-    @Override
-    public boolean isAccountNonExpired() { return true; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    @Override
-    public boolean isAccountNonLocked() { return true; }
+    public static class Builder {
+        private final JWTUserDetails jwtUserDetail;
 
-    @Override
-    public boolean isCredentialsNonExpired() { return true; }
+        public Builder() {
+            this.jwtUserDetail = new JWTUserDetails();
+        }
 
-    @Override
-    public boolean isEnabled() { return true; }
+        public Builder setSub(String sub) {
+            this.jwtUserDetail.sub = sub;
+            return this;
+        }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        JWTUserDetails that = (JWTUserDetails) o;
-        return Objects.equals(id, that.id);
+        public Builder setIat(Long iat) {
+            this.jwtUserDetail.iat = iat;
+            return this;
+        }
+
+        public Builder setExp(Long exp) {
+            this.jwtUserDetail.exp = exp;
+            return this;
+        }
+
+        public Builder setRoles(Collection<? extends GrantedAuthority> roles) {
+            this.jwtUserDetail.roles = roles;
+            return this;
+        }
+
+        public Builder setId(UUID id) {
+            this.jwtUserDetail.id = id;
+            return this;
+        }
+
+        public Builder setCn(String cn) {
+            this.jwtUserDetail.cn = cn;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.jwtUserDetail.password = password;
+            return this;
+        }
+
+        public JWTUserDetails build() {
+            return this.jwtUserDetail;
+        }
     }
 }
