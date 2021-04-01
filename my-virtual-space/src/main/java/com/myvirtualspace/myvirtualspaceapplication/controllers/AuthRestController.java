@@ -1,6 +1,5 @@
 package com.myvirtualspace.myvirtualspaceapplication.controllers;
 
-import com.myvirtualspace.myvirtualspaceapplication.dto.ErrorResponse;
 import com.myvirtualspace.myvirtualspaceapplication.dto.UserCredentials;
 import com.myvirtualspace.myvirtualspaceapplication.security.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
