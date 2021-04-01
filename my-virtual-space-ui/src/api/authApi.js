@@ -1,6 +1,6 @@
-import http from '../../services/httpService';
-import config from '../../config.json';
-import constants from '../../constants.json';
+import http from '../services/httpService';
+import config from '../config.json';
+import constants from '../constants.json';
 
 const getConf = () => {
   const headers = { 'Content-Type': 'application/json' };
@@ -10,8 +10,8 @@ const getConf = () => {
 const signIn = credential => {
   return http
     .post(config.apiLoginEndpoint, credential, getConf())
-    .then(({ data }) => {
-      return data;
+    .then(({ data: jwt }) => {
+      return jwt;
     })
     .catch(({ response }) => {
       return response;
@@ -21,8 +21,8 @@ const signIn = credential => {
 const signUp = credential => {
   return http
     .post(config.apiRegistrationEndpoint, credential, getConf())
-    .then(({ data }) => {
-      return data;
+    .then(({ data: jwt }) => {
+      return jwt;
     })
     .catch(({ response }) => {
       return response;
@@ -40,8 +40,8 @@ const checkToken = () => {
       .then(({ data: jwt }) => {
         return jwt;
       })
-      .catch(error => {
-        return null;
+      .catch(({ response }) => {
+        return response;
       });
   } else return null;
 };

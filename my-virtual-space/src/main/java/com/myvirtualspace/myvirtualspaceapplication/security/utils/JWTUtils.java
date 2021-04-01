@@ -3,8 +3,10 @@ package com.myvirtualspace.myvirtualspaceapplication.security.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.UnexpectedException;
 import com.myvirtualspace.myvirtualspaceapplication.security.constants.SecurityConstants;
 import com.myvirtualspace.myvirtualspaceapplication.security.entities.JWTUserDetails;
+import com.myvirtualspace.myvirtualspaceapplication.utils.ErrorsConstants;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,24 +33,14 @@ public class JWTUtils {
         this.mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    public String generateTokenFromAuthentication(Authentication authentication) {
-        JWTUserDetails jwtUserDetail = (JWTUserDetails) authentication.getPrincipal();
-
-        return generateTokenFromJWTUserDetails(jwtUserDetail);
+    public String generateTokenFromAuthentication(Authentication authentication) throws JsonProcessingException {
+        return generateTokenFromJWTUserDetails((JWTUserDetails) authentication.getPrincipal());
     }
 
-    public String generateTokenFromJWTUserDetails(JWTUserDetails jwtUserDetail) {
-        String payload;
-
-        try {
-            payload = mapper.writeValueAsString(jwtUserDetail);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
-
+    public String generateTokenFromJWTUserDetails(JWTUserDetails jwtUserDetail) throws JsonProcessingException {
         return Jwts
                 .builder()
-                .setPayload(payload)
+                .setPayload(mapper.writeValueAsString(jwtUserDetail))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
     }
@@ -65,13 +57,13 @@ public class JWTUtils {
         return null;
     }
 
-    public JWTUserDetails parseToken(String authToken) throws IOException {
+    public JWTUserDetails parseToken(String authToken) throws UnexpectedException {
         try {
             return mapper.readValue(new String(Base64.getDecoder().decode(authToken.split("\\.")[1]), StandardCharsets.UTF_8),
                     JWTUserDetails.class);
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error("Failed jwt parsing. Original header value: {}", authToken, e);
-            throw e;
+            throw new UnexpectedException(ErrorsConstants.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -102,7 +94,7 @@ public class JWTUtils {
             log.warn("Unsupported JWT Token");
         } catch (IllegalArgumentException e) {
             log.warn("JWT claims string is empty.");
-        } catch (IOException e) {
+        } catch (UnexpectedException e) {
             log.warn("Invalid JWT Token - {}", e.getMessage());
         }
 
@@ -120,7 +112,7 @@ public class JWTUtils {
         try {
             Instant iat = Instant.ofEpochMilli(tokenIat);
             return Instant.now().isBefore(iat);
-        } catch (DateTimeException | ArithmeticException e) {
+        } catch (NullPointerException | DateTimeException | ArithmeticException e) {
             log.warn("Unparsable iat field", e);
             return false;
         }
@@ -137,7 +129,7 @@ public class JWTUtils {
         try {
             Instant exp = Instant.ofEpochMilli(tokenExp);
             return Instant.now().isAfter(exp);
-        } catch (DateTimeException | ArithmeticException e) {
+        } catch (NullPointerException | DateTimeException | ArithmeticException e) {
             log.warn("Unparsable exp field", e);
             return true;
         }

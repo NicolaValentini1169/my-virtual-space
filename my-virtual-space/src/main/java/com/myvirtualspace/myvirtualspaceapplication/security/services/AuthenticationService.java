@@ -1,23 +1,26 @@
-package com.myvirtualspace.myvirtualspaceapplication.secutity.services;
+package com.myvirtualspace.myvirtualspaceapplication.security.services;
 
 import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.BadRequestException;
 import com.myvirtualspace.myvirtualspaceapplication.context.exceptions.NoAuthorizationException;
 import com.myvirtualspace.myvirtualspaceapplication.dto.UserCredentials;
 import com.myvirtualspace.myvirtualspaceapplication.entities.Role;
 import com.myvirtualspace.myvirtualspaceapplication.entities.User;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.constants.SecurityConstants;
-import com.myvirtualspace.myvirtualspaceapplication.secutity.utils.JWTUtils;
+import com.myvirtualspace.myvirtualspaceapplication.security.constants.SecurityConstants;
+import com.myvirtualspace.myvirtualspaceapplication.security.utils.JWTUtils;
 import com.myvirtualspace.myvirtualspaceapplication.services.UserService;
+import com.myvirtualspace.myvirtualspaceapplication.utils.ErrorsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.rmi.UnexpectedException;
 import java.util.UUID;
 
 @Service
@@ -33,24 +36,31 @@ public class AuthenticationService {
     @Autowired
     private JWTUtils jwtUtils;
 
-    public String signIn(UserCredentials loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+    public String signIn(UserCredentials loginRequest) throws BadRequestException, UnexpectedException {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        log.info(String.format("User %s logged.", loginRequest.getUsername()));
+            log.info(String.format("User %s logged.", loginRequest.getUsername()));
 
-        return jwtUtils.generateTokenFromAuthentication(authentication);
+            return jwtUtils.generateTokenFromAuthentication(authentication);
+
+        } catch (BadCredentialsException e) {
+            throw new BadRequestException(ErrorsConstants.WRONG_PASSWORD);
+        } catch (Exception e) {
+            throw new UnexpectedException(ErrorsConstants.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    public String signUp(UserCredentials registrationRequest) {
+    public String signUp(UserCredentials registrationRequest) throws BadRequestException, UnexpectedException {
         if (userService.getUserRepository().existsByUsername(registrationRequest.getUsername())) {
-            throw new BadRequestException(SecurityConstants.ERROR_MESSAGE_WRONG_USERNAME);
+            throw new BadRequestException(ErrorsConstants.ALREADY_USE_USERNAME);
         }
 
         if (registrationRequest.getPassword() == null || registrationRequest.getPassword().replaceAll(" ", "").length() <= 0) {
-            throw new BadRequestException(SecurityConstants.ERROR_MESSAGE_WRONG_PASSWORD);
+            throw new BadRequestException(ErrorsConstants.NOT_VALID_PASSWORD);
         }
 
         User user = new User(
@@ -68,9 +78,9 @@ public class AuthenticationService {
         return signIn(registrationRequest);
     }
 
-    public String checkToken(String jwt) {
+    public String checkToken(String jwt) throws NoAuthorizationException {
         if (!Boolean.TRUE.equals(jwtUtils.validateToken(jwt))) {
-            throw new NoAuthorizationException(SecurityConstants.ERROR_MESSAGE_NOT_LOGGED);
+            throw new NoAuthorizationException(ErrorsConstants.DO_LOGIN);
         } else return jwt;
     }
 }

@@ -1,7 +1,8 @@
-import authApi from './authApi';
+import authApi from '../../api/authApi';
 import constants from '../../constants.json';
 import store from '../../redux/store';
 import actions from '../../redux/actions';
+import jwtDecode from 'jwt-decode';
 
 export const handleSignIn = async credential =>
   handleResponse(await authApi.signIn(credential));
@@ -15,10 +16,10 @@ export const handleSignOut = () => {
 };
 
 const handleResponse = response => {
-  if (response?.accessToken) {
-    setToken(response.accessToken);
-    setCurrentUser(response?.jwtUserDetail);
-  } else return response?.data?.message || constants.apiError.networkError;
+  if (response?.status !== 400) {
+    setToken(response);
+    setCurrentUser(response);
+  } else return response?.data || constants.apiError.networkError;
 };
 
 export const setToken = token => {
@@ -29,12 +30,14 @@ export const deleteToken = () => {
   localStorage.removeItem(constants.accessToken);
 };
 
-export const setCurrentUser = user => {
+export const setCurrentUser = jwt => {
+  const user = jwtDecode(jwt);
+
   store.dispatch(
     actions.setUser({
       id: user?.id,
-      username: user?.username,
-      roles: user?.authorities,
+      username: user?.cn,
+      roles: user?.roles,
     }),
   );
 };
