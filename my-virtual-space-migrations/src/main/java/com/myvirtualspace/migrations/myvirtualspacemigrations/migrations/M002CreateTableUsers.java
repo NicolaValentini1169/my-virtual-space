@@ -22,7 +22,7 @@ public class M002CreateTableUsers extends JFMigrationClass {
         migration.executeSql("INSERT INTO users VALUES ( " +
                 " 'a5b51143-5223-4e33-9cea-fcd4936a9119', " +
                 " 'Dr. Niar', " +
-                " '111111', " +
+                " '$2a$10$xDn37i/odG1pZiAADu5gvOlMBBwvuKk1fjrwF03YfRdg6qyVxZalq', " + // 111111
                 " null, " +
                 " null, " +
                 " null, " +

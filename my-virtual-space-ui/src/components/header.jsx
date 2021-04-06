@@ -1,5 +1,4 @@
 import React from 'react';
-import constants from '../constants.json';
 import routes from '../routes.json';
 import { handleSignOut } from '../utils/authUtils';
 import { useHistory } from 'react-router-dom';
@@ -10,7 +9,7 @@ const Header = () => {
   const user = useSelector(state => state?.user);
 
   return (
-    localStorage.getItem(constants.accessToken) && (
+    user && (
       <div className="header font-magneto">
         <p className="mb-0 d-flex align-items-end header float-left">
           My virtual Space

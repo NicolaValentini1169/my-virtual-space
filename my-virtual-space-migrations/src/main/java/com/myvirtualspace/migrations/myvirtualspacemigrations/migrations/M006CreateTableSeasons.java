@@ -53,7 +53,7 @@ public class M006CreateTableSeasons extends JFMigrationClass {
                 /* review */ " '0', " +
                 /* comment */ " 'commento 2', " +
                 /* anime */ " '69af548c-3d42-429e-8081-17709246b37f', " +
-                /* state */ " 'afc4c5d8-d3a4-4e59-a811-ac93759ce2e0', " +
+                /* state */ " 'ff4f94de-cdf8-4c19-87bd-60c4b5b46d00', " +
                 " null, " +
                 " null, " +
                 " null, " +

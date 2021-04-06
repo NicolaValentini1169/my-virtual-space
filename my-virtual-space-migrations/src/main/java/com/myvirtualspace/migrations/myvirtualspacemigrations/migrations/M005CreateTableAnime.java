@@ -36,7 +36,7 @@ public class M005CreateTableAnime extends JFMigrationClass {
                 " 'Akame ga Kill', " +
                 " 'commento', " +
                 " 'nota', " +
-                " 'afc4c5d8-d3a4-4e59-a811-ac93759ce2e0', " +
+                " '4241ddbb-9e44-41a4-9b96-102ed840ef82', " +
                 " 'a5b51143-5223-4e33-9cea-fcd4936a9119', " +
                 " null, " +
                 " null, " +
