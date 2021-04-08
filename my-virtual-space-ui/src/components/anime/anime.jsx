@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import $ from 'jquery';
 import { capitalizeFirstLetter, getFakeId, setError } from '../../utils/utils';
 import animeApi from '../../api/animeApi';
-import { checkAnime, saveAnime } from './animeUtils';
+import { checkAnime, saveAnime } from '../../utils/animeUtils';
 import IconButton from '../common/iconButton';
 import TextInput from '../common/input/text';
 import OptionInput from '../common/input/option';

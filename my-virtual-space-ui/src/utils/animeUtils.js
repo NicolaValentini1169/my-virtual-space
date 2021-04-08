@@ -1,5 +1,5 @@
-import { fixForeignKey, getFakeId, isAStringNotBlank } from '../../utils/utils';
-import animeApi from '../../api/animeApi';
+import { fixForeignKey, getFakeId, isAStringNotBlank } from './utils';
+import animeApi from '../api/animeApi';
 
 export const getNewAnime = user => ({
   id: null,
@@ -13,13 +13,6 @@ export const getNewAnime = user => ({
   },
   stagioni: [],
 });
-
-export const saveNewAnime = list => {
-  return list.map(anime => {
-    delete anime.fakeId;
-    return anime;
-  });
-};
 
 export const fixAnime = anime => {
   if (anime) {

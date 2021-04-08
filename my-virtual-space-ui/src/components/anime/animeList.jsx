@@ -7,7 +7,7 @@ import Anime from './anime';
 import EmptyBody from '../common/emptyBody';
 import stateApi from '../../api/stateApi';
 import { useSelector } from 'react-redux';
-import { checkAnime, getNewAnime, saveAnime } from './animeUtils';
+import { checkAnime, getNewAnime, saveAnime } from '../../utils/animeUtils';
 import IconButton from '../common/iconButton';
 import { setError } from '../../utils/utils';
 
