@@ -11,6 +11,19 @@ export const capitalizeFirstLetter = string => {
     : '';
 };
 
+export const getFakeId = () =>
+  new Date().getTime() * Math.floor(Math.random() * 100) + 1;
+
+/**
+ * If is an id set it ad uuid,
+ * if not exist .id set null
+ * otherwise set the initial obj
+ * @param obj
+ * @returns {{id}|null|{id}|*}
+ */
+export const fixForeignKey = obj =>
+  isAStringNotBlank(obj) ? { id: obj } : !obj?.id ? null : obj;
+
 /**
  * Return true if string is a string
  * and there is at least one char

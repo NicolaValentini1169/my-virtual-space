@@ -1,4 +1,5 @@
-import React from 'react';
+import { fixForeignKey, getFakeId, isAStringNotBlank } from '../../utils/utils';
+import animeApi from '../../api/animeApi';
 
 export const getNewAnime = user => ({
   id: null,
@@ -7,14 +8,11 @@ export const getNewAnime = user => ({
   commento: '',
   nota: '',
   state: null,
-  user: user?.id,
+  user: {
+    id: user?.id,
+  },
   stagioni: [],
 });
-
-export const addNewAnime = (list, user) => [...list, getNewAnime(user)];
-
-export const getFakeId = () =>
-  new Date().getTime() * Math.floor(Math.random() * 100) + 1;
 
 export const saveNewAnime = list => {
   return list.map(anime => {
@@ -23,16 +21,33 @@ export const saveNewAnime = list => {
   });
 };
 
-export const renderButtonAnime = (icon, func, title) => (
-  <button
-    type="button"
-    className="btn btn-anime p-0 pl-1 pr-1 border-0 shadow-none"
-    onClick={() => func()}
-    data-toggle="tooltip"
-    data-placement="bottom"
-    title={title}
-    data-original-title={title}
-  >
-    <span className={`fa fa-${icon}`} />
-  </button>
-);
+export const fixAnime = anime => {
+  if (anime) {
+    anime.state = fixForeignKey(anime.state);
+    anime.user = fixForeignKey(anime.user);
+
+    return anime;
+  } else {
+    return null;
+  }
+};
+
+export const checkAnime = anime => {
+  if (!anime) {
+    return 'Anime not exist';
+  } else if (!isAStringNotBlank(anime.titolo)) {
+    return 'Invalid title';
+  } else if (!isAStringNotBlank(anime.commento)) {
+    return 'Invalid comment';
+  } else if (!isAStringNotBlank(anime.nota)) {
+    return 'Invalid nota';
+  } else if (!isAStringNotBlank(anime.state) && !anime.state?.id) {
+    return 'Invalid state';
+  }
+};
+
+export const saveAnime = async anime => {
+  return anime.id
+    ? await animeApi.updateAnime(fixAnime(anime))
+    : await animeApi.saveAnime(fixAnime(anime));
+};

@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
 import $ from 'jquery';
-import { capitalizeFirstLetter } from '../../utils/utils';
+import { capitalizeFirstLetter, getFakeId, setError } from '../../utils/utils';
 import animeApi from '../../api/animeApi';
-import { getFakeId, renderButtonAnime } from './animeUtils';
+import { checkAnime, saveAnime } from './animeUtils';
+import IconButton from '../common/iconButton';
+import TextInput from '../common/input/text';
+import OptionInput from '../common/input/option';
 
 const Anime = ({
   anime,
@@ -18,43 +21,32 @@ const Anime = ({
       case 'index':
         return index;
       case 'state':
-        return anime.fakeId
-          ? renderState(column.path)
-          : anime[column.path]?.descrizione;
+        return !anime.fakeId ? (
+          anime[column.path]?.descrizione
+        ) : (
+          <OptionInput
+            name={column.path}
+            changeFunc={e => handleChange(e)}
+            list={stateList}
+            field="descrizione"
+            selected={anime[column.path]?.id}
+          />
+        );
       case 'add':
         return renderButtons;
       default:
-        return anime.fakeId ? renderText(column.path) : anime[column.path];
+        return !anime.fakeId ? (
+          anime[column.path]
+        ) : (
+          <TextInput
+            changeFunc={e => handleChange(e)}
+            name={column.path}
+            placeholder={capitalizeFirstLetter(column.path)}
+            value={anime[column.path]}
+          />
+        );
     }
   };
-
-  const renderText = name => (
-    <input
-      onChange={e => handleChange(e)}
-      type="text"
-      name={name}
-      id={`input${capitalizeFirstLetter(name)}${index}`}
-      className="form-control"
-      placeholder={capitalizeFirstLetter(name)}
-      required
-      autoFocus
-      value={anime[name]}
-    />
-  );
-
-  const renderState = name => (
-    <select
-      className="custom-select"
-      name={name}
-      onChange={e => handleChange(e)}
-    >
-      {stateList?.map(state => (
-        <option value={state.id} selected={anime[name]?.id === state.id}>
-          {state.descrizione}
-        </option>
-      ))}
-    </select>
-  );
 
   const handleChange = ({ currentTarget: input }) => {
     uploadAnime({ ...anime, [input.name]: input.value });
@@ -62,45 +54,63 @@ const Anime = ({
 
   const renderButtons = !anime.fakeId ? (
     <>
-      {renderButtonAnime(
-        'pencil',
-        () => uploadAnime({ ...anime, fakeId: getFakeId() }),
-        'Update Anime',
-      )}
-      {renderButtonAnime(
-        'trash',
-        async () =>
-          (await animeApi.deleteAnimeById(anime.id)) && reloadAnimeList(),
-        'Delete Anime',
-      )}
+      <IconButton
+        func={() => uploadAnime({ ...anime, fakeId: getFakeId() })}
+        title="Update Anime"
+        icon="pencil"
+        customClass="btn-anime"
+      />
+      <IconButton
+        func={async () =>
+          await animeApi
+            .deleteAnimeById(anime.id)
+            .then(response => response && reloadAnimeList())
+        }
+        title="Delete Anime"
+        icon="trash"
+        customClass="btn-anime"
+      />
     </>
   ) : (
     <>
-      {renderButtonAnime('floppy-o', () => saveAnime(), 'Save Anime')}
-      {renderButtonAnime(
-        anime.id ? 'times' : 'trash',
-        async () =>
+      <IconButton
+        func={() => preSaveAnime()}
+        title="Save Anime"
+        icon="floppy-o"
+        customClass="btn-anime"
+      />
+      <IconButton
+        func={async () =>
           anime.id
             ? uploadAnime({ ...(await animeApi.findById(anime.id)) })
-            : removeAnime(anime),
-        anime.id ? 'Reload Anime' : 'Delete Anime',
-      )}
+            : removeAnime(anime)
+        }
+        title={anime.id ? 'Reload Anime' : 'Delete Anime'}
+        icon={anime.id ? 'times' : 'trash'}
+        customClass="btn-anime"
+      />
+      <div className="small text-danger">{anime.error}</div>
     </>
   );
 
-  const saveAnime = async () => {
-    let response;
-    if (anime.id) response = await animeApi.updateAnime(anime);
-    else response = await animeApi.saveAnime(anime);
+  const preSaveAnime = () => {
+    const toSave = setError(anime, checkAnime(anime));
 
-    if (response) {
-      reloadAnimeList();
-      removeAnime(anime);
+    if (toSave.error) {
+      uploadAnime({ ...toSave });
+    } else {
+      saveAnime(toSave).then(response => {
+        if (response) {
+          reloadAnimeList();
+          removeAnime(anime);
+        }
+      });
     }
   };
 
   useEffect(() => {
     const tooltip = $('[data-toggle="tooltip"]');
+
     tooltip.tooltip();
     return () => tooltip.tooltip('dispose');
   }, []);
