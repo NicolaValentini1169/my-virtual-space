@@ -32,9 +32,11 @@ const App = () => {
       );
     }
 
-    handleCheckToken().then(jwt =>
-      jwt ? history.push(routes.urls.login) : history.push(routes.urls.home),
-    );
+    handleCheckToken()
+      .then(jwt =>
+        jwt ? history.push(routes.urls.login) : history.push(routes.urls.home),
+      )
+      .catch(() => history.push(routes.urls.login));
   }, [history]);
 
   return (
