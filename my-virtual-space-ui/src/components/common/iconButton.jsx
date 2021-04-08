@@ -1,6 +1,6 @@
 import React from 'react';
 
-const IconButton = ({ func, title, icon, customClass }) => {
+const IconButton = ({ func, title, icon, customClass = '' }) => {
   return (
     <button
       type="button"

@@ -12,7 +12,7 @@ const Anime = ({
   index,
   columns,
   uploadAnime,
-  removeAnime,
+  removeNewAnime,
   stateList,
   reloadAnimeList,
 }) => {
@@ -32,7 +32,7 @@ const Anime = ({
             selected={anime[column.path]?.id}
           />
         );
-      case 'add':
+      case 'buttons':
         return renderButtons;
       default:
         return !anime.fakeId ? (
@@ -83,7 +83,7 @@ const Anime = ({
         func={async () =>
           anime.id
             ? uploadAnime({ ...(await animeApi.findById(anime.id)) })
-            : removeAnime(anime)
+            : removeNewAnime(anime)
         }
         title={anime.id ? 'Reload Anime' : 'Delete Anime'}
         icon={anime.id ? 'times' : 'trash'}
@@ -102,7 +102,7 @@ const Anime = ({
       saveAnime(toSave).then(response => {
         if (response) {
           reloadAnimeList();
-          removeAnime(anime);
+          removeNewAnime(anime);
         }
       });
     }

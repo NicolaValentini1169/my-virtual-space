@@ -7,7 +7,9 @@ import Anime from './anime';
 import EmptyBody from '../common/emptyBody';
 import stateApi from '../../api/stateApi';
 import { useSelector } from 'react-redux';
-import { addNewAnime, saveNewAnime } from './animeUtils';
+import { checkAnime, getNewAnime, saveAnime } from './animeUtils';
+import IconButton from '../common/iconButton';
+import { setError } from '../../utils/utils';
 
 const AnimeList = () => {
   const user = useSelector(state => state?.user);
@@ -22,36 +24,21 @@ const AnimeList = () => {
 
   const renderButtons = (
     <>
-      <button
-        type="button"
-        className="btn p-0 pr-1 border-0 shadow-none"
-        onClick={() => setNewAnimeList(addNewAnime(newAnimeList))}
-        data-toggle="tooltip"
-        data-placement="bottom"
+      <IconButton
+        func={() => setNewAnimeList([...newAnimeList, getNewAnime(user)])}
         title="Add a new Anime"
-      >
-        <span className="fa fa-plus" />
-      </button>
-      <button
-        type="button"
-        className="btn p-0 pl-1 pr-1 border-0 shadow-none"
-        onClick={() => setNewAnimeList(saveNewAnime(newAnimeList))}
-        data-toggle="tooltip"
-        data-placement="bottom"
+        icon="plus"
+      />
+      <IconButton
+        func={() => preSaveAnime()}
         title="Save all new Anime"
-      >
-        <span className="fa fa-floppy-o" />
-      </button>
-      <button
-        type="button"
-        className="btn p-0 pl-1 border-0 shadow-none"
-        onClick={() => setNewAnimeList([])}
-        data-toggle="tooltip"
-        data-placement="bottom"
+        icon="floppy-o"
+      />
+      <IconButton
+        func={() => setNewAnimeList([])}
         title="Delete all new Anime"
-      >
-        <span className="fa fa-trash" />
-      </button>
+        icon="trash"
+      />
     </>
   );
 
@@ -62,7 +49,7 @@ const AnimeList = () => {
     { path: 'nota', label: 'Note', customThClass: 'col-md-2' },
     { path: 'state', label: 'Stato', customThClass: 'col-md-2' },
     {
-      path: 'add',
+      path: 'buttons',
       label: renderButtons,
       unclickable: true,
       customThClass: 'col-md-1',
@@ -71,15 +58,16 @@ const AnimeList = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    setAnimeList((await animeApi.findAll()) || []);
-    setStateList((await stateApi.findAll()) || []);
+    setAnimeList(await animeApi.findAll());
+    setStateList(await stateApi.findAll());
     setLoading(false);
   };
 
   useEffect(() => {
+    const tooltip = $('[data-toggle="tooltip"]');
+
     fetchData();
 
-    const tooltip = $('[data-toggle="tooltip"]');
     tooltip.tooltip();
     return () => tooltip.tooltip('dispose');
   }, []);
@@ -96,6 +84,27 @@ const AnimeList = () => {
   const removeNewAnime = anime =>
     setNewAnimeList([...newAnimeList.filter(a => a.fakeId !== anime.fakeId)]);
 
+  const preSaveAnime = () => {
+    const list = newAnimeList.map(anime => setError(anime, checkAnime(anime)));
+
+    const listToSave = list.filter(anime => !anime.error);
+    const listWithError = list.filter(anime => anime.error);
+    const listError = [];
+
+    listToSave.forEach(anime =>
+      saveAnime(anime).then(response => {
+        if (response) {
+          removeNewAnime(anime);
+          fetchData();
+        } else {
+          listError.push(anime);
+        }
+      }),
+    );
+
+    setNewAnimeList(listWithError.concat(listError));
+  };
+
   return (
     <div className="table-wrapper">
       <table className="table">
@@ -108,24 +117,17 @@ const AnimeList = () => {
           <LoadingSpinner />
         ) : animeList.length || newAnimeList.length ? (
           <tbody>
-            {newAnimeList.map((anime, index) => (
+            {newAnimeList.concat(animeList).map((anime, index) => (
               <Anime
                 anime={anime}
-                index={`New ${index + 1}`}
+                index={
+                  anime.id
+                    ? index + 1 - newAnimeList.length
+                    : `New ${index + 1}`
+                }
                 columns={columns}
                 uploadAnime={uploadAnime}
-                removeAnime={removeNewAnime}
-                stateList={stateList}
-                reloadAnimeList={fetchData}
-              />
-            ))}
-            {animeList.map((anime, index) => (
-              <Anime
-                anime={anime}
-                index={index + 1}
-                columns={columns}
-                uploadAnime={uploadAnime}
-                removeAnime={removeNewAnime}
+                removeNewAnime={removeNewAnime}
                 stateList={stateList}
                 reloadAnimeList={fetchData}
               />

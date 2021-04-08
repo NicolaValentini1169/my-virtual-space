@@ -23,6 +23,7 @@ export const saveNewAnime = list => {
 
 export const fixAnime = anime => {
   if (anime) {
+    delete anime.fakeId;
     anime.state = fixForeignKey(anime.state);
     anime.user = fixForeignKey(anime.user);
 
