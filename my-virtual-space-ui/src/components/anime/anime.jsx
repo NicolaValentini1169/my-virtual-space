@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import $ from 'jquery';
 import { capitalizeFirstLetter, getFakeId, setError } from '../../utils/utils';
 import animeApi from '../../api/animeApi';
@@ -6,6 +6,7 @@ import { checkAnime, saveAnime } from '../../utils/animeUtils';
 import IconButton from '../common/iconButton';
 import TextInput from '../common/input/text';
 import OptionInput from '../common/input/option';
+import AnimeModal from './animeModal';
 
 const Anime = ({
   anime,
@@ -16,6 +17,8 @@ const Anime = ({
   stateList,
   reloadAnimeList,
 }) => {
+  const [showInfo, setShowInfo] = useState(false);
+
   const getValue = column => {
     switch (column.path) {
       case 'index':
@@ -54,6 +57,12 @@ const Anime = ({
 
   const renderButtons = !anime.fakeId ? (
     <>
+      <IconButton
+        func={() => setShowInfo(true)}
+        title=""
+        icon="info"
+        customClass="btn-anime"
+      />
       <IconButton
         func={() => uploadAnime({ ...anime, fakeId: getFakeId() })}
         title="Update Anime"
@@ -116,16 +125,21 @@ const Anime = ({
   }, []);
 
   return (
-    <tr className="overlay row" key={anime.id || anime.fakeId}>
-      {columns.map(column => (
-        <td
-          key={(anime.id || anime.fakeId) + column.path}
-          className={column?.customThClass || ''}
-        >
-          {getValue(column)}
-        </td>
-      ))}
-    </tr>
+    <>
+      <tr className="overlay row" key={anime.id || anime.fakeId}>
+        {columns.map(column => (
+          <td
+            key={(anime.id || anime.fakeId) + column.path}
+            className={column?.customThClass || ''}
+          >
+            {getValue(column)}
+          </td>
+        ))}
+      </tr>
+      {showInfo && (
+        <AnimeModal anime={anime} closeModal={() => setShowInfo(false)} />
+      )}
+    </>
   );
 };
 
