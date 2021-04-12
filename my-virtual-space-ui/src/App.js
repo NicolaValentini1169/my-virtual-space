@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +16,7 @@ import SlideBook from './components/SlideBook';
 import NotFound from './components/notFound';
 import { handleCheckToken } from './utils/authUtils';
 import { useHistory } from 'react-router';
+import LoadingSpinner from './components/common/loadingSpinner';
 
 const Test = ({ num }) => {
   return <h1>TEST {num}</h1>;
@@ -23,20 +24,26 @@ const Test = ({ num }) => {
 
 const App = () => {
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    for (let api in config) {
-      config[api] = config[api].replace(
-        '[REACT_APP_URL_JAVA]',
-        process.env.REACT_APP_URL_JAVA,
-      );
-    }
+    Object.keys(config).forEach(
+      api =>
+        (config[api] = config[api].replace(
+          '[REACT_APP_URL_JAVA]',
+          process.env.REACT_APP_URL_JAVA,
+        )),
+    );
 
     handleCheckToken()
-      .then(jwt =>
-        jwt ? history.push(routes.urls.login) : history.push(routes.urls.home),
-      )
-      .catch(() => history.push(routes.urls.login));
+      .then(errorMessage => {
+        setLoading(false);
+        errorMessage && history.push(routes.urls.login);
+      })
+      .catch(() => {
+        setLoading(false);
+        history.push(routes.urls.login);
+      });
   }, [history]);
 
   return (
@@ -47,22 +54,26 @@ const App = () => {
           <Header />
           <SlideBook />
           <NavBar />
-          <Switch>
-            <Route exact path={routes.urls.login} component={Login} />
-            <Route exact path={routes.urls.anime} component={AnimeList} />
-            <Route exact path={routes.urls.test1}>
-              <Test num={1} />
-            </Route>
-            <Route exact path={routes.urls.test2}>
-              <Test num={2} />
-            </Route>
-            <Route exact path={routes.urls.test3}>
-              <Test num={3} />
-            </Route>
-            <Route exact path={routes.urls.home} component={Home} />
-            <Route exact path={routes.urls.notFound} component={NotFound} />
-            <Redirect to={routes.urls.notFound} />
-          </Switch>
+          {loading ? (
+            <LoadingSpinner />
+          ) : (
+            <Switch>
+              <Route exact path={routes.urls.login} component={Login} />
+              <Route exact path={routes.urls.anime} component={AnimeList} />
+              <Route exact path={routes.urls.test1}>
+                <Test num={1} />
+              </Route>
+              <Route exact path={routes.urls.test2}>
+                <Test num={2} />
+              </Route>
+              <Route exact path={routes.urls.test3}>
+                <Test num={3} />
+              </Route>
+              <Route exact path={routes.urls.home} component={Home} />
+              <Route exact path={routes.urls.notFound} component={NotFound} />
+              <Redirect to={routes.urls.notFound} />
+            </Switch>
+          )}
         </main>
         <div className="version-number">{process.env.REACT_APP_VERSION}</div>
       </Provider>
