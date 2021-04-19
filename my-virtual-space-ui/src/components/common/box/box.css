@@ -1,0 +1,24 @@
+.box {
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: initial;
+    border: 1px solid var(--home-border);
+    border-radius: .25rem;
+    margin: .5rem !important;
+}
+
+.title {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: var(--mvs-color);
+    border-bottom: 1px solid var(--home-border);
+}
+
+.body {
+    overflow-y: auto;
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+}
