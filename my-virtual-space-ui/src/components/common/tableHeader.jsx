@@ -17,7 +17,12 @@ import React from 'react';
  *
  * */
 
-const TableHeader = ({ columns, onSort, sortColumn, customThClass = '' }) => {
+const TableHeader = ({
+  columns,
+  onSort = () => {},
+  sortColumn = {},
+  customThClass = '',
+}) => {
   const handleChangeSort = column => {
     const sortColumnCopy = { ...sortColumn };
 
