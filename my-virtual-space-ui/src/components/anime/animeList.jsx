@@ -18,7 +18,7 @@ const AnimeList = () => {
   const [loading, setLoading] = useState(false);
   const [newAnimeList, setNewAnimeList] = useState([]);
   const [sortColumn, setSortColumn] = useState({
-    column: 'title',
+    column: 'titolo',
     order: 'asc',
   });
 
@@ -119,6 +119,7 @@ const AnimeList = () => {
           <tbody>
             {newAnimeList.concat(animeList).map((anime, index) => (
               <Anime
+                key={anime}
                 anime={anime}
                 index={
                   anime.id

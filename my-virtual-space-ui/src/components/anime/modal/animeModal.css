@@ -1,0 +1,38 @@
+.anime-modal-content {
+    width: 94vw;
+    height: 96vh;
+    display: flex;
+    position: absolute;
+    top: 2vh;
+    left: 3vw;
+    z-index: 100;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+    padding: 2vh 2vw;
+    color: black;
+}
+
+.anime-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.anime-modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+
+.anime-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+}

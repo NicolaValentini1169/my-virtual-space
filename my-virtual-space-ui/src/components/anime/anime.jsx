@@ -6,7 +6,7 @@ import { checkAnime, saveAnime } from '../../utils/animeUtils';
 import IconButton from '../common/iconButton';
 import TextInput from '../common/input/text';
 import OptionInput from '../common/input/option';
-import AnimeModal from './animeModal';
+import AnimeModal from './modal/animeModal';
 
 const Anime = ({
   anime,
