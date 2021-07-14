@@ -1,49 +1,54 @@
 import axios from 'axios';
-import routes from '../routes.json';
-import { createTakeLatest } from './takeLatest';
+import Routes from '../routes';
+import constants from '../constants.json';
 
-axios.interceptors.response.use(null, error => {
-  if (
-    error.response &&
-    error.response.status === 401 &&
-    window.location.pathname !== routes.login
-  ) {
-    //UNAUTHORIZED
-    window.location.replace(window.location.origin + routes.login);
-  } else if (error.response && error.response.status === 403) {
-    //FORBIDDEN
-    let shouldRedirect = false;
-
-    if (error.response.data) {
-      Object.keys(error.response.data).forEach(key => {
-        if (key !== 'timestamp' && key !== 'message' && key !== 'details') {
-          shouldRedirect = true;
-        }
-      });
-    }
-
-    if (shouldRedirect) {
-      window.location.replace(window.location.origin + routes.urls.home);
-    }
-  }
-
-  return Promise.reject(error);
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_URL_JAVA,
 });
 
-const exports = {
-  get: axios.get,
-  post: axios.post,
-  put: axios.put,
-  delete: axios.delete,
-  CancelToken: axios.CancelToken,
-  isCancel: axios.isCancel,
-  takeLatest: (() => createTakeLatest())(),
-  methods: {
-    GET: 'get',
-    POST: 'post',
-    PUT: 'put',
-    DELETE: 'delete',
+const getBaseConfig = () => ({
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: localStorage.getItem(constants.accessToken),
   },
-};
+});
 
-export default exports;
+instance.interceptors.request.use(
+  config => {
+    const baseConfig = getBaseConfig();
+    return {
+      ...baseConfig,
+      ...config,
+      headers: { ...baseConfig.headers, ...config.headers },
+    };
+  },
+  error => error,
+);
+
+instance.interceptors.response.use(
+  response => response,
+  error => {
+    const redirectToLogin =
+      error.response?.status === 401 &&
+      window.location.pathname !== Routes.urls.login;
+
+    if (redirectToLogin) {
+      window.location.href = Routes.urls.login;
+      return;
+    }
+
+    const redirectToHome =
+      error.response?.status === 403 &&
+      window.location.pathname !== Routes.urls.home;
+
+    if (redirectToHome) {
+      window.location.href = Routes.urls.home;
+      return;
+    }
+
+    // eslint-disable-next-line consistent-return
+    return Promise.reject(error);
+  },
+);
+
+export default instance;
