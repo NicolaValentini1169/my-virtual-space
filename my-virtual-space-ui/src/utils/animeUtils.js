@@ -1,5 +1,5 @@
 import { fixForeignKey, getFakeId, isAStringNotBlank } from './utils';
-import animeApi from '../api/animeApi';
+import { useSaveAnime, useUpdateAnime } from '../hooks/anime/useAnime2';
 
 export const getNewAnime = user => ({
   id: null,
@@ -42,6 +42,8 @@ export const checkAnime = anime => {
 
 export const saveAnime = async anime => {
   return anime.id
-    ? await animeApi.updateAnime(fixAnime(anime))
-    : await animeApi.saveAnime(fixAnime(anime));
+    ? // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
+      await useUpdateAnime(fixAnime(anime))
+    : // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
+      await useSaveAnime(fixAnime(anime));
 };

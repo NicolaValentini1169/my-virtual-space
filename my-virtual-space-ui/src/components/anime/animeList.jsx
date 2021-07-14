@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import $ from 'jquery';
 import LoadingSpinner from '../common/loadingSpinner';
 import TableHeader from '../common/tableHeader';
-import animeApi from '../../api/animeApi';
 import Anime from './anime';
 import EmptyBody from '../common/emptyBody';
 import stateApi from '../../api/stateApi';
@@ -10,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { checkAnime, getNewAnime, saveAnime } from '../../utils/animeUtils';
 import IconButton from '../common/iconButton';
 import { setError } from '../../utils/utils';
+import { useAnimeList } from '../../hooks/anime/useAnime2';
 
 const AnimeList = () => {
   const user = useSelector(state => state?.user);
@@ -58,7 +58,8 @@ const AnimeList = () => {
 
   const fetchData = async () => {
     setLoading(true);
-    setAnimeList(await animeApi.findAll());
+    // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
+    setAnimeList(await useAnimeList());
     setStateList(await stateApi.findAll());
     setLoading(false);
   };

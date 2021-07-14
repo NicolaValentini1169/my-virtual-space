@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import $ from 'jquery';
 import { capitalizeFirstLetter, getFakeId, setError } from '../../utils/utils';
-import animeApi from '../../api/animeApi';
 import { checkAnime, saveAnime } from '../../utils/animeUtils';
 import IconButton from '../common/iconButton';
 import TextInput from '../common/input/text';
 import OptionInput from '../common/input/option';
 import AnimeModal from './modal/animeModal';
+import { useAnime, useDeleteAnime } from '../../hooks/anime/useAnime2';
 
 const Anime = ({
   anime,
@@ -71,9 +71,10 @@ const Anime = ({
       />
       <IconButton
         func={async () =>
-          await animeApi
-            .deleteAnimeById(anime.id)
-            .then(response => response && reloadAnimeList())
+          // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
+          await useDeleteAnime(anime.id).then(
+            response => response && reloadAnimeList(),
+          )
         }
         title="Delete Anime"
         icon="trash"
@@ -91,7 +92,8 @@ const Anime = ({
       <IconButton
         func={async () =>
           anime.id
-            ? uploadAnime({ ...(await animeApi.findById(anime.id)) })
+            ? // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
+              uploadAnime({ ...(await useAnime(anime.id)) })
             : removeNewAnime(anime)
         }
         title={anime.id ? 'Reload Anime' : 'Delete Anime'}
