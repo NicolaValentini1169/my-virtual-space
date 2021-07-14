@@ -46,7 +46,6 @@ instance.interceptors.response.use(
       return;
     }
 
-    // eslint-disable-next-line consistent-return
     return Promise.reject(error);
   },
 );
