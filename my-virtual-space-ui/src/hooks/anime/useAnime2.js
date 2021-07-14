@@ -8,8 +8,8 @@ import {
 import { toastError } from '../../utils/utils';
 import { toast } from 'react-toastify';
 
-export const useSaveAnime = async (anime, callback) => {
-  return await saveAnime(anime)
+export const useSaveAnime = (anime, callback) => {
+  return saveAnime(anime)
     .then(({ data: anime }) => {
       toast.success(`Anime ${anime.titolo} creato correttamente`);
 
@@ -23,8 +23,8 @@ export const useSaveAnime = async (anime, callback) => {
     });
 };
 
-export const useUpdateAnime = async (anime, callback) => {
-  return await updateAnime(anime)
+export const useUpdateAnime = (anime, callback) => {
+  return updateAnime(anime)
     .then(({ data: anime }) => {
       toast.success(`Anime ${anime.titolo} aggiornato correttamente`);
 
@@ -37,8 +37,8 @@ export const useUpdateAnime = async (anime, callback) => {
     });
 };
 
-export const useDeleteAnime = async (id, callback) => {
-  return await deleteAnimeById(id)
+export const useDeleteAnime = (id, callback) => {
+  return deleteAnimeById(id)
     .then(({ data: anime }) => {
       toast.success(`Anime ${anime.titolo} eliminato correttamente`);
 
@@ -54,8 +54,8 @@ export const useDeleteAnime = async (id, callback) => {
     });
 };
 
-export const useAnimeList = async callback => {
-  return await findAll()
+export const useAnimeList = callback => {
+  return findAll()
     .then(({ data: list }) => {
       if (typeof callback === 'function') callback();
       return list;
@@ -66,8 +66,8 @@ export const useAnimeList = async callback => {
     });
 };
 
-export const useAnime = async (id, callback) => {
-  return await findById(id)
+export const useAnime = (id, callback) => {
+  return findById(id)
     .then(({ data: anime }) => {
       if (typeof callback === 'function') callback();
       return anime;
