@@ -1,9 +1,9 @@
-import { fixForeignKey, getFakeId, isAStringNotBlank } from './utils';
+import { fixForeignKey, isAStringNotBlank } from './utils';
 import { useSaveAnime, useUpdateAnime } from '../hooks/anime/useAnime2';
 
-export const getNewAnime = user => ({
+export const getNewAnime = (user, fakeId) => ({
   id: null,
-  fakeId: getFakeId(),
+  fakeId,
   titolo: '',
   commento: '',
   nota: '',

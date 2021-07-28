@@ -40,3 +40,7 @@ export const setError = (obj, msg) => {
 
   return obj;
 };
+
+export const isString = obj => typeof obj === 'string';
+
+export const isNumber = obj => typeof obj === 'number';
