@@ -1,13 +1,19 @@
 import React from 'react';
 
-const TextInput = ({ changeFunc, name, placeholder, value }) => {
+const TextInput = ({
+  changeFunc,
+  name,
+  placeholder,
+  value,
+  customClass = '',
+}) => {
   return (
     <input
       onChange={e => typeof changeFunc === 'function' && changeFunc(e)}
       type="text"
       name={name}
       id={`input${name}`}
-      className="form-control"
+      className={`form-control ${customClass}`}
       placeholder={placeholder}
       required
       autoFocus
