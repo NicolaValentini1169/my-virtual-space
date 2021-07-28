@@ -1,32 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import $ from 'jquery';
-import { capitalizeFirstLetter, getFakeId, setError } from '../../utils/utils';
-import { checkAnime, saveAnime } from '../../utils/animeUtils';
+import { capitalizeFirstLetter, isNumber } from '../../utils/utils';
 import IconButton from '../common/iconButton';
 import TextInput from '../common/input/text';
 import OptionInput from '../common/input/option';
+import { columns } from './utils';
+import useDeleteAnime from '../../hooks/anime/useDeleteAnime';
 import AnimeModal from './modal/animeModal';
-import { useAnime, useDeleteAnime } from '../../hooks/anime/useAnime2';
 
-const Anime = ({
-  anime,
-  index,
-  columns,
-  uploadAnime,
-  removeNewAnime,
-  stateList,
-  reloadAnimeList,
-}) => {
+const Anime = ({ anime, index, uploadNewAnime, removeNewAnime, stateList }) => {
   const [showInfo, setShowInfo] = useState(false);
+  const deleteAnime = useDeleteAnime();
 
   const getValue = column => {
     switch (column.path) {
       case 'index':
         return index;
       case 'state':
-        return !anime.fakeId ? (
-          anime[column.path]?.descrizione
-        ) : (
+        return isNumber(anime.fakeId) ? (
           <OptionInput
             name={column.path}
             changeFunc={e => handleChange(e)}
@@ -34,94 +25,63 @@ const Anime = ({
             field="descrizione"
             selected={anime[column.path]?.id}
           />
+        ) : (
+          anime[column.path]?.descrizione
         );
       case 'buttons':
         return renderButtons;
       default:
-        return !anime.fakeId ? (
-          anime[column.path]
-        ) : (
+        return isNumber(anime.fakeId) ? (
           <TextInput
             changeFunc={e => handleChange(e)}
             name={column.path}
             placeholder={capitalizeFirstLetter(column.path)}
             value={anime[column.path]}
           />
+        ) : (
+          anime[column.path]
         );
     }
   };
 
-  const handleChange = ({ currentTarget: input }) => {
-    uploadAnime({ ...anime, [input.name]: input.value });
-  };
-
-  const renderButtons = !anime.fakeId ? (
-    <>
-      <IconButton
-        func={() => setShowInfo(true)}
-        title=""
-        icon="info"
-        customClass="btn-anime"
-      />
-      <IconButton
-        func={() => uploadAnime({ ...anime, fakeId: getFakeId() })}
-        title="Update Anime"
-        icon="pencil"
-        customClass="btn-anime"
-      />
-      <IconButton
-        func={async () =>
-          // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
-          await useDeleteAnime(anime.id).then(
-            response => response && reloadAnimeList(),
-          )
-        }
-        title="Delete Anime"
-        icon="trash"
-        customClass="btn-anime"
-      />
-    </>
-  ) : (
-    <>
-      <IconButton
-        func={() => preSaveAnime()}
-        title="Save Anime"
-        icon="floppy-o"
-        customClass="btn-anime"
-      />
-      <IconButton
-        func={async () =>
-          anime.id
-            ? // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
-              uploadAnime({ ...(await useAnime(anime.id)) })
-            : removeNewAnime(anime)
-        }
-        title={anime.id ? 'Reload Anime' : 'Delete Anime'}
-        icon={anime.id ? 'times' : 'trash'}
-        customClass="btn-anime"
-      />
-      <div className="small text-danger">{anime.error}</div>
-    </>
+  const handleChange = useCallback(
+    ({ currentTarget: input }) => {
+      uploadNewAnime({ ...anime, [input.name]: input.value });
+    },
+    [anime, uploadNewAnime],
   );
 
-  const preSaveAnime = () => {
-    const toSave = setError(anime, checkAnime(anime));
-
-    if (toSave.error) {
-      uploadAnime({ ...toSave });
-    } else {
-      saveAnime(toSave).then(response => {
-        if (response) {
-          reloadAnimeList();
-          removeNewAnime(anime);
-        }
-      });
-    }
-  };
+  const renderButtons = useMemo(
+    () => (
+      <>
+        {!isNumber(anime.fakeId) && (
+          <IconButton
+            func={() => setShowInfo(true)}
+            title=""
+            icon="info"
+            customClass="btn-anime"
+          />
+        )}
+        <IconButton
+          func={() => {
+            if (isNumber(anime.fakeId)) {
+              removeNewAnime(anime);
+            } else {
+              deleteAnime.mutate(anime);
+            }
+          }}
+          title="Delete Anime"
+          icon="trash"
+          customClass="btn-anime"
+        />
+        <div className="small text-danger">{anime.error}</div>
+      </>
+    ),
+    [anime, deleteAnime, removeNewAnime],
+  );
 
   useEffect(() => {
     const tooltip = $('[data-toggle="tooltip"]');
-
     tooltip.tooltip();
     return () => tooltip.tooltip('dispose');
   }, []);
@@ -129,7 +89,7 @@ const Anime = ({
   return (
     <>
       <tr className="overlay row" key={anime.id || anime.fakeId}>
-        {columns.map(column => (
+        {columns().map(column => (
           <td
             key={(anime.id || anime.fakeId) + column.path}
             className={column?.customThClass || ''}
