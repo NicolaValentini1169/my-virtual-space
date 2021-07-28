@@ -39,11 +39,3 @@ export const checkAnime = anime => {
     return 'Invalid state';
   }
 };
-
-export const saveAnime = async anime => {
-  return anime.id
-    ? // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
-      await useUpdateAnime(fixAnime(anime))
-    : // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
-      await useSaveAnime(fixAnime(anime));
-};

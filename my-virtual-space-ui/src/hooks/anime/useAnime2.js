@@ -1,15 +1,10 @@
-import {
-  deleteAnimeById,
-  findAll,
-  findById,
-  saveAnime,
-  updateAnime,
-} from '../../api/animeApi';
+import { findById, saveAnime } from '../../api/animeApi';
 import { toastError } from '../../utils/utils';
 import { toast } from 'react-toastify';
+import { fixAnime } from '../../utils/animeUtils';
 
 export const useSaveAnime = (anime, callback) => {
-  return saveAnime(anime)
+  return saveAnime(fixAnime(anime))
     .then(({ data: anime }) => {
       toast.success(`Anime ${anime.titolo} creato correttamente`);
 

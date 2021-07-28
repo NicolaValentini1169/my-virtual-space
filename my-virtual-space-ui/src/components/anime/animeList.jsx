@@ -9,8 +9,9 @@ import EmptyBody from '../common/emptyBody';
 import Anime from './anime';
 import useStateList from '../../hooks/state/useStateList';
 import { setError } from '../../utils/utils';
-import { checkAnime, getNewAnime, saveAnime } from '../../utils/animeUtils';
+import { checkAnime, getNewAnime } from '../../utils/animeUtils';
 import IconButton from '../common/iconButton';
+import { useSaveAnime } from '../../hooks/anime/useAnime2';
 
 const AnimeList = () => {
   const user = useSelector(state => state?.user);
@@ -60,10 +61,11 @@ const AnimeList = () => {
     // Da controllare il reload della pagina che non viene fatto correttamente
     listToSave.forEach(
       async anime =>
-        await saveAnime(anime)
-          .then(response => {
+        // eslint-disable-next-line react-app/react-hooks/rules-of-hooks,react-hooks/rules-of-hooks
+        await useSaveAnime(anime)
+          .then(async response => {
             if (response) {
-              removeNewAnime(anime);
+              await removeNewAnime(anime);
             } else {
               listWithError.push(anime);
             }
