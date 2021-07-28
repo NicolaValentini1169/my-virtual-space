@@ -30,8 +30,8 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.update(anime));
     }
 
-    @DeleteMapping
-    public ResponseEntity<Anime> deleteAnimeById(@RequestParam(value = "id", required = true, defaultValue = "") UUID id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Anime> deleteAnimeById(@PathVariable("id") UUID id) {
         return animeService.findById(id).map(anime -> {
             animeService.deleteById(anime.getId());
 
@@ -39,13 +39,13 @@ public class AnimeController {
         }).orElseThrow(() -> new NotFoundException("Anime non trovato."));
     }
 
-    @RequestMapping(value = "findAll", method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<Anime>> findAllAnime() {
         return ResponseEntity.ok(animeService.findAll());
     }
 
-    @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public ResponseEntity<Anime> findAnimeById(@RequestParam(value = "id", required = true, defaultValue = "") UUID id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Anime> findAnimeById(@PathVariable("id") UUID id) {
         return animeService.findById(id).map(ResponseEntity::ok).orElseThrow(() -> new NotFoundException("Anime non trovato."));
     }
 }

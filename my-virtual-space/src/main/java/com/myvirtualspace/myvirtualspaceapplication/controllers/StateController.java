@@ -30,8 +30,8 @@ public class StateController {
         return ResponseEntity.ok(stateService.update(state));
     }
 
-    @DeleteMapping
-    public ResponseEntity<State> deleteStateById(@RequestParam(value = "id", required = true, defaultValue = "") UUID id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<State> deleteStateById(@PathVariable("id") UUID id) {
         return stateService.findById(id).map(state -> {
             stateService.deleteById(state.getId());
 
@@ -39,13 +39,13 @@ public class StateController {
         }).orElseThrow(() -> new NotFoundException("Stato non trovato."));
     }
 
-    @RequestMapping(value = "findAll", method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<State>> findAllState() {
         return ResponseEntity.ok(stateService.findAll());
     }
 
-    @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public ResponseEntity<State> findStateById(@RequestParam(value = "id", required = true, defaultValue = "") UUID id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<State> findStateById(@PathVariable("id") UUID id) {
         return stateService.findById(id).map(ResponseEntity::ok).orElseThrow(() -> new NotFoundException("Stato non trovato."));
     }
 }
