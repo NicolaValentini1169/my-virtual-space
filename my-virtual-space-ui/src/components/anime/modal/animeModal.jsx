@@ -7,10 +7,12 @@ import { columns } from './utils';
 import useStateList from '../../../hooks/state/useStateList';
 import LoadingSpinner from '../../common/loadingSpinner';
 import CompactData from '../../common/CompactData';
+import useUpdateAnime from '../../../hooks/anime/useUpdateAnime';
 
 const AnimeModal = ({ anime, closeModal }) => {
   const [modified, setModified] = useState(null);
   const [isChanging, setIsChanging] = useState(false);
+  const updateAnime = useUpdateAnime();
 
   const {
     data: stateListData,
@@ -32,13 +34,19 @@ const AnimeModal = ({ anime, closeModal }) => {
         {isChanging ? (
           <>
             <IconButton
-              func={() => setIsChanging(false)}
+              func={() => {
+                updateAnime.mutate(modified);
+                setIsChanging(false);
+              }}
               title="Save Changes"
               icon="save"
               customClass="btn-anime"
             />
             <IconButton
-              func={() => setIsChanging(false)}
+              func={() => {
+                setModified(anime);
+                setIsChanging(false);
+              }}
               title="Delete Changes"
               icon="trash"
               customClass="btn-anime"
@@ -54,7 +62,7 @@ const AnimeModal = ({ anime, closeModal }) => {
         )}
       </>
     ),
-    [isChanging],
+    [anime, isChanging, modified, updateAnime],
   );
 
   const renderInfo = useMemo(() => {
