@@ -2,8 +2,15 @@ import React, { useMemo } from 'react';
 import { capitalizeFirstLetter, isString } from '../../utils/utils';
 import TextInput from './input/text';
 import OptionInput from './input/option';
+import { fixAnime } from '../../utils/animeUtils';
 
-const CompactData = ({ data, column, isChanging = false, stateList }) => {
+const CompactData = ({
+  column,
+  data,
+  setData,
+  stateList,
+  isChanging = false,
+}) => {
   const { label, width, path, editableType } = column;
 
   const getValue = useMemo(() => {
@@ -27,8 +34,9 @@ const CompactData = ({ data, column, isChanging = false, stateList }) => {
       return (
         <TextInput
           changeFunc={e => {
-            console.log('xxe', e.currentTarget.value);
-            data[path] = e.currentTarget.value;
+            const copy = { ...data };
+            copy[path] = e.currentTarget.value;
+            setData(copy);
           }}
           name={path}
           placeholder="Inserisci valore"
@@ -41,7 +49,13 @@ const CompactData = ({ data, column, isChanging = false, stateList }) => {
       return (
         <OptionInput
           name={path}
-          changeFunc={e => (data[path] = e.currentTarget.value)}
+          changeFunc={e => {
+            const copy = { ...data };
+            copy['state'] = stateList.find(
+              state => state.id === e.currentTarget.value,
+            );
+            setData(fixAnime(copy));
+          }}
           list={stateList}
           field="descrizione"
           selected={data['state']?.id}
@@ -50,7 +64,7 @@ const CompactData = ({ data, column, isChanging = false, stateList }) => {
     }
 
     return '';
-  }, [editableType, path, data, getValue, stateList]);
+  }, [editableType, path, getValue, data, setData, stateList]);
 
   const renderValue = useMemo(() => (isChanging ? renderInput : getValue), [
     getValue,
